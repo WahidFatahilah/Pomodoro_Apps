@@ -10,28 +10,23 @@ val Teal200 = Color(0xFF03DAC5)
 
 
 //LIGHT MODE
-
 //WARNA BUTTON
 var LightPrimaryButton = Color(0xFFFF24F76)
 var LightButtonCompletedPrimary = Color(0xFFF5AAC46)
 var LightPrimaryProgress = Color(0xFFFFEC260)
 var LightButtonStopTimerSecondary = Color(0xFFFED3434)
-
 //WARNABACKGROUND
 var LightBackgroundPopup = Color(0xFFF1F1F1F)
 var backgroundLight = Color(0xFFFF9F9F9)
 var LightBackgroundSplash = Color (0xfffffffff)
-
 //WARNAFONT
 var LightFontPrimary = Color(0xfff252525)
 var LightFontSecondaryAbuAbuCaption = Color(0xfff)
 var LightFontSecondaryPinkSplash = Color(0xfff)
 var LightFontSecondaryHijauNotif = Color(0xfff)
-
 //WARNA_GARIS_OUTLINE
 var LightOutlineButtonTimer = Color(0xfffeeeeee)
 var LightOutlineSetting = Color(0xfffb9b9b9)
-
 //WARNA_INPUT_BOX_TEXT
 
 

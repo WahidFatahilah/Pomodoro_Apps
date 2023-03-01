@@ -1,5 +1,6 @@
 package com.moa.pomodoroapps.ui.theme
 
+import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -9,61 +10,84 @@ val Teal200 = Color(0xFF03DAC5)
 
 
 
-//LIGHT MODE
-//WARNA BUTTON
-var LightPrimaryButton = Color(0xFFFF24F76)
-var LightButtonCompletedPrimary = Color(0xFFF5AAC46)
-var LightPrimaryProgress = Color(0xFFFFEC260)
-var LightButtonStopTimerSecondary = Color(0xFFFED3434)
-//WARNABACKGROUND
-var LightBackgroundPopup = Color(0xFFF1F1F1F)
-var backgroundLight = Color(0xFFFF9F9F9)
-var LightBackgroundSplash = Color (0xfffffffff)
-//WARNAFONT
-var LightFontPrimary = Color(0xfff252525)
-var LightFontSecondaryAbuAbuCaption = Color(0xfff)
-var LightFontSecondaryPinkSplash = Color(0xfff)
-var LightFontSecondaryHijauNotif = Color(0xfff)
-//WARNA_GARIS_OUTLINE
-var LightOutlineButtonTimer = Color(0xfffeeeeee)
-var LightOutlineSetting = Color(0xfffb9b9b9)
-//WARNA_INPUT_BOX_TEXT
+// BUTTON PRIMARY
+val Colors.button_pink_primary : Color
+    get() = if (isLight) Color(0xFFF24F76)
+    else Color(0xFFF24F76)
+
+val Colors.button_green_primary : Color
+    get() = if (isLight) Color(0xFF5AAC46)
+    else Color(0xFFF24F76)
+
+val Colors.button_yellow_primary : Color
+    get() = if (isLight) Color(0xFFFEC260)
+    else Color(0xFFF24F76)
+
+// BUTTON SECONDARY
+
+val Colors.button_red_sc   : Color
+    get() = if (isLight) Color(0xFFED3434)
+    else Color(0xFFF24F76)
+
+val Colors.button_grey_low_sc : Color
+    get() = if (isLight) Color(0xFFF3F3F3)
+    else Color(0xFFF24F76)
+
+val Colors.button_grey_high_sc  : Color
+    get() = if (isLight) Color(0xFF919191)
+    else Color(0xFFF24F76)
+
+val Colors.button_bluedark_low   : Color
+    get() = if (isLight) Color(0xFF28476C)
+    else Color(0xFFF24F76)
+
+val Colors.button_bluedark : Color
+    get() = if (isLight) Color(0xFF0A2647)
+    else Color(0xFFF24F76)
+
+val Colors.button_white  : Color
+    get() = if (isLight) Color(0xFFF4F4F4)
+    else Color(0xFFF24F76)
+
+val Colors.button_grey_low : Color
+    get() = if (isLight) Color(0xFFC9C9C9)
+    else Color(0xFFF24F76)
 
 
 
-//WARNA_CARD
+
+// WARNA FONT PRIMARY
+val Colors.font_black_primary  : Color
+    get() = if (isLight) Color(0xFF252525)
+    else Color(0xFFF24F76)
+
+val Colors.font_white_primary   : Color
+    get() = if (isLight) Color(0xFFF9F9F9)
+    else Color(0xFFF24F76)
 
 
-//WARNA_DISABLE_BUTTON
+// WARNA FONT SECONDARY
+val Colors.font_grey_medium_sc   : Color
+    get() = if (isLight) Color(0xFFB9B9B9)
+    else Color(0xFFF24F76)
 
+val Colors.font_red_low_sc   : Color
+    get() = if (isLight) Color(0xFFE95760)
+    else Color(0xFFF24F76)
 
-//WARNA_ICON_EDIT
+val Colors.font_green_high_sc   : Color
+    get() = if (isLight) Color(0xFF6AC953)
+    else Color(0xFFF24F76)
 
+val Colors.font_pink_low_sc   : Color
+    get() = if (isLight) Color(0xFFFBB5C5)
+    else Color(0xFFF24F76)
 
+// WARNA ASSET
+val Colors.asset_pink   : Color
+    get() = if (isLight) Color(0xFFE95760)
+    else Color(0xFFF24F76)
 
-//WARNA_BUTTON_DANGER
-
-
-
-
-
-
-var textColorLigt= Color(0xFF252525)
-var surfaceLight = Color(0xFFF)
-var onPrimaryLight = Color(0xFFF)
-var onSecondaryLight = Color(0xFFF)
-var onBackgroundLight = Color(0xFFF)
-var onSurfaceLight = Color(0xFFF)
-
-
-// DARK MODE
-
-var backgroundDark = Color(0xFFF1F1F1F)
-var textColorDark= Color(0xFFF9F9F9)
-var surfaceDark = Color(0xFFF)
-var onPrimaryDark = Color(0xFFF)
-var onSecondaryDark = Color(0xFFF)
-var onBackgroundDark = Color(0xFFF)
-var onSurfaceDark = Color(0xFFF)
-
-//
+val Colors.icon_black   : Color
+    get() = if (isLight) Color(0xFF252525)
+    else Color(0xFFF24F76)

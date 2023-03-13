@@ -18,7 +18,7 @@ fun HomeScreen() {
         Column (modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()){
-            Text(text = "Primary Semi Bold",Style = )
+            Text(text = "Primary Semi Bold")
             Text(text = "Header H1 ")
             Text(text = "Header H2")
             Text(text = "Subtitle 1")

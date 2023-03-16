@@ -45,4 +45,53 @@ val Typography = Typography(
 
 
 )
+val primary = TextStyle(
+    fontSize = 45.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.SemiBold,
+    letterSpacing = 1.sp
+)
+
+val h1 = TextStyle(
+    fontSize = 35.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.SemiBold,
+    letterSpacing = 1.sp
+)
+
+val h2 = TextStyle(
+    fontSize = 30.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.SemiBold,
+    letterSpacing = 1.sp
+)
+
+val subtitle1 = TextStyle(
+    fontSize = 25.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.Medium,
+    letterSpacing = 1.sp
+)
+
+val subtitle2 = TextStyle(
+    fontSize = 23.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.Medium,
+    letterSpacing = 1.sp
+)
+
+val keterangan1= TextStyle(
+    fontSize = 20.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.Normal,
+    letterSpacing = 1.sp
+)
+
+val ringtoneunderline = TextStyle(
+    fontSize = 18.sp,
+    fontFamily = poppinsFamily,
+    fontWeight = FontWeight.Normal,
+    letterSpacing = 1.sp
+)
+
 

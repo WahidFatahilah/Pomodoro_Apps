@@ -8,7 +8,7 @@ import com.moa.pomodoroapps.R
 
 val poppinsFamily = FontFamily(
     Font(
-        resId = R.font.poppins_semibold,
+        resId = R.font.poopins_semibold,
         weight = FontWeight.SemiBold
     ),
     Font(
@@ -16,7 +16,7 @@ val poppinsFamily = FontFamily(
         weight = FontWeight.Medium
     ),
     Font(
-        resId = R.font.poppins_regular,
+        resId = R.font.poopins_regular,
         weight = FontWeight.Normal
     ),
 

@@ -11,83 +11,94 @@ val Teal200 = Color(0xFF03DAC5)
 
 
 // BUTTON PRIMARY
-val Colors.button_pink_primary : Color
+val Colors.pink : Color
     get() = if (isLight) Color(0xFFF24F76)
     else Color(0xFFF24F76)
 
-val Colors.button_green_primary : Color
-    get() = if (isLight) Color(0xFF5AAC46)
-    else Color(0xFFF24F76)
-
-val Colors.button_yellow_primary : Color
+val Colors.yellow : Color
     get() = if (isLight) Color(0xFFFEC260)
-    else Color(0xFFF24F76)
+    else Color(0xFFFEC260)
 
-// BUTTON SECONDARY
+val Colors.grey : Color
+    get() = if (isLight) Color(0xFFC9C9C9)
+    else Color(0xFFC9C9C9)
 
-val Colors.button_red_sc   : Color
-    get() = if (isLight) Color(0xFFED3434)
-    else Color(0xFFF24F76)
+val Colors.font  : Color
+    get() = if (isLight) Color(0xFF252525)
+    else Color(0xFFF9F9F9)
 
-val Colors.button_grey_low_sc : Color
+val Colors.purple : Color
     get() = if (isLight) Color(0xFFF3F3F3)
     else Color(0xFFF24F76)
 
-val Colors.button_grey_high_sc  : Color
-    get() = if (isLight) Color(0xFF919191)
-    else Color(0xFFF24F76)
+val Colors.blue : Color
+    get() = if (isLight) Color(0xFF65CBFE)
+    else Color(0xFF65CBFE)
 
-val Colors.button_bluedark_low   : Color
-    get() = if (isLight) Color(0xFF28476C)
-    else Color(0xFFF24F76)
+val Colors.magenta  : Color
+    get() = if (isLight) Color(0xFFF9F9F9)
+    else Color(0xFFF9F9F9)
 
-val Colors.button_bluedark : Color
-    get() = if (isLight) Color(0xFF0A2647)
-    else Color(0xFFF24F76)
+val Colors.orange : Color
+    get() = if (isLight) Color(0xFFFB8758)
+    else Color(0xFFFB8758)
 
-val Colors.button_white  : Color
-    get() = if (isLight) Color(0xFFF4F4F4)
-    else Color(0xFFF24F76)
+val Colors.green  : Color
+    get() = if (isLight) Color(0xFF2DC26A)
+    else Color(0xFF2DC26A)
 
-val Colors.button_grey_low : Color
-    get() = if (isLight) Color(0xFFC9C9C9)
-    else Color(0xFFF24F76)
+val Colors.red : Color
+    get() = if (isLight) Color(0xFFED3434)
+    else Color(0xFFED3434)
 
-
-
-
-// WARNA FONT PRIMARY
-val Colors.font_black_primary  : Color
-    get() = if (isLight) Color(0xFF252525)
-    else Color(0xFFF24F76)
+val Colors.backgroundscreen  : Color
+    get() = if (isLight) Color(0xFFF9F9F9)
+    else Color(0xFF1F1F1F)
 
 val Colors.font_white_primary   : Color
     get() = if (isLight) Color(0xFFF9F9F9)
     else Color(0xFFF24F76)
 
 
-// WARNA FONT SECONDARY
-val Colors.font_grey_medium_sc   : Color
-    get() = if (isLight) Color(0xFFB9B9B9)
+// SECONDARY
+
+val Colors.pink_soft   : Color
+    get() = if (isLight) Color(0xFFFA7897)
     else Color(0xFFF24F76)
 
-val Colors.font_red_low_sc   : Color
-    get() = if (isLight) Color(0xFFE95760)
-    else Color(0xFFF24F76)
+val Colors.yellow_soft   : Color
+    get() = if (isLight) Color(0xFFFCCB5E)
+    else Color(0xFFFCCB5E)
 
-val Colors.font_green_high_sc   : Color
-    get() = if (isLight) Color(0xFF6AC953)
-    else Color(0xFFF24F76)
+val Colors.grey_soft  : Color
+    get() = if (isLight) Color(0xFFDDDDDD)
+    else Color(0xFFDDDDDD)
 
-val Colors.font_pink_low_sc   : Color
-    get() = if (isLight) Color(0xFFFBB5C5)
-    else Color(0xFFF24F76)
+val Colors.black_soft  : Color
+    get() = if (isLight) Color(0xFF252525)
+    else Color(0xFF252525)
 
 // WARNA ASSET
-val Colors.asset_pink   : Color
-    get() = if (isLight) Color(0xFFE95760)
-    else Color(0xFFF24F76)
+val Colors.purple_soft   : Color
+    get() = if (isLight) Color(0xFFCBBFFF)
+    else Color(0xFFCBBFFF)
 
-val Colors.icon_black   : Color
-    get() = if (isLight) Color(0xFF252525)
-    else Color(0xFFF24F76)
+val Colors.blue_soft  : Color
+    get() = if (isLight) Color(0xFF85D6FF)
+    else Color(0xFF85D6FF)
+
+val Colors.magenta_soft  : Color
+    get() = if (isLight) Color(0xFFE486CF)
+    else Color(0xFFE486CF)
+
+val Colors.orange_soft   : Color
+    get() = if (isLight) Color(0xFFFFAA88)
+    else Color(0xFFFFAA88)
+
+val Colors.green_soft  : Color
+    get() = if (isLight) Color(0xFF5FC488)
+    else Color(0xFF5FC488)
+
+val Colors.red_soft   : Color
+    get() = if (isLight) Color(0xFFfd8184)
+    else Color(0xFFfd8184)

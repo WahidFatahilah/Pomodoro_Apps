@@ -6,18 +6,8 @@ import androidx.compose.ui.text.font.FontWeight
 import com.moa.pomodoroapps.R
 
 
-val poppinsFamily = FontFamily(
+val poppins = FontFamily(
     Font(
-        resId = R.font.poppins_semibold,
-        weight = FontWeight.SemiBold
+        resId = R.font.poppins,
     ),
-    Font(
-        resId = R.font.poppins_medium,
-        weight = FontWeight.Medium
-    ),
-    Font(
-        resId = R.font.poppins_regular,
-        weight = FontWeight.Normal
-    ),
-
 )

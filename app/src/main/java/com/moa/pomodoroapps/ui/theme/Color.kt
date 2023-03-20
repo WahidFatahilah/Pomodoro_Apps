@@ -1,5 +1,6 @@
 package com.moa.pomodoroapps.ui.theme
 
+import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -9,61 +10,95 @@ val Teal200 = Color(0xFF03DAC5)
 
 
 
-//LIGHT MODE
-//WARNA BUTTON
-var LightPrimaryButton = Color(0xFFFF24F76)
-var LightButtonCompletedPrimary = Color(0xFFF5AAC46)
-var LightPrimaryProgress = Color(0xFFFFEC260)
-var LightButtonStopTimerSecondary = Color(0xFFFED3434)
-//WARNABACKGROUND
-var LightBackgroundPopup = Color(0xFFF1F1F1F)
-var backgroundLight = Color(0xFFFF9F9F9)
-var LightBackgroundSplash = Color (0xfffffffff)
-//WARNAFONT
-var LightFontPrimary = Color(0xfff252525)
-var LightFontSecondaryAbuAbuCaption = Color(0xfff)
-var LightFontSecondaryPinkSplash = Color(0xfff)
-var LightFontSecondaryHijauNotif = Color(0xfff)
-//WARNA_GARIS_OUTLINE
-var LightOutlineButtonTimer = Color(0xfffeeeeee)
-var LightOutlineSetting = Color(0xfffb9b9b9)
-//WARNA_INPUT_BOX_TEXT
+//Primary
+
+val Colors.Pink
+    get() = if (isLight) Color(0xFFF24F76)
+    else Color(0xFFF24F76)
+val Colors.Yellow
+    get() = if (isLight) Color(0xFFFEC260)
+    else Color(0xFFFEC260)
+val Colors.Grey
+    get() = if (isLight) Color(0xFFC9C9C9)
+    else Color(0xFFC9C9C9)
+val Colors.Purple
+    get() = if (isLight) Color(0xFFb09fff)
+    else Color(0xFFb09fff)
+val Colors.Blue
+    get() = if (isLight) Color(0xFF65cbfe)
+    else Color(0xFF65cbfe)
+val Colors.Magenta
+    get() = if (isLight) Color(0xFFf9f9f9)
+    else Color(0xFFf9f9f9)
+val Colors.Orange
+    get() = if (isLight) Color(0xFFfb8758)
+    else Color(0xFFfb8758)
+val Colors.Green
+    get() = if (isLight) Color(0xFF2dc26a)
+    else Color(0xFF2dc26a)
+val Colors.Red
+    get() = if (isLight) Color(0xFFed3434)
+    else Color(0xFFed3434)
+
+
+//Secondary
+val Colors.PinkSoft
+    get() = if (isLight) Color(0xFFFA7897)
+    else Color(0xFFFA7897)
+val Colors.YellowSoft
+    get() = if (isLight) Color(0xFFfccb5e)
+    else Color(0xFFfccb5e)
+val Colors.GreySoft
+    get() = if (isLight) Color(0xFFddddd)
+    else Color(0xFFddddd)
+val Colors.PurpleSoft
+    get() = if (isLight) Color(0xFFcbbff)
+    else Color(0xFFcbbff)
+val Colors.BlueSoft
+    get() = if (isLight) Color(0xFF65cbfe)
+    else Color(0xFF65cbfe)
+val Colors.MagentaSof
+    get() = if (isLight) Color(0xffe486cf)
+    else Color(0xffe486cf)
+val Colors.OrangeSoft
+    get() = if (isLight) Color(0xffffaa88)
+    else Color(0xffffaa88)
+val Colors.GreenSoft
+    get() = if (isLight) Color(0xff5fc488)
+    else Color(0xff5fc488)
+val Colors.RedSoft
+    get() = if (isLight) Color(0xfffd8184)
+    else Color(0xfffd8184)
+
+//etc
+
+val Colors.FontColor
+    get() = if (isLight) Color(0xFF252525)
+    else Color(0xFFf9f9f9)
+
+val Colors.backgroundColor
+    get() = if (isLight) Color(0xFFf9f9f9)
+    else Color(0xFF1f1f1f)
+
+val Colors.BlackCard
+    get() = if (isLight) Color(0xff2c2c2c)
+    else Color(0xff2c2c2c)
+
+val Colors.IETabsColor
+    get() = if (isLight) Color(0xFFc9c9c9)
+    else Color(0xffb9b9b9)
+
+
+val Pink = Color(0xFFF24F76)
+val PinkSoft = Color(0xFFFA7897)
+val Grey = Color(0xFFC9C9C9)
+
+val  asset_White = Color(0xFFf9f9f9)
+val  asset_Black = Color(0xFFf9f9f9)
+
+val Colors.asset_Lines
+    get() = if (isLight) asset_White
+    else asset_Black
 
 
 
-//WARNA_CARD
-
-
-//WARNA_DISABLE_BUTTON
-
-
-//WARNA_ICON_EDIT
-
-
-
-//WARNA_BUTTON_DANGER
-
-
-
-
-
-
-var textColorLigt= Color(0xFF252525)
-var surfaceLight = Color(0xFFF)
-var onPrimaryLight = Color(0xFFF)
-var onSecondaryLight = Color(0xFFF)
-var onBackgroundLight = Color(0xFFF)
-var onSurfaceLight = Color(0xFFF)
-
-
-// DARK MODE
-
-var backgroundDark = Color(0xFFF1F1F1F)
-var textColorDark= Color(0xFFF9F9F9)
-var surfaceDark = Color(0xFFF)
-var onPrimaryDark = Color(0xFFF)
-var onSecondaryDark = Color(0xFFF)
-var onBackgroundDark = Color(0xFFF)
-var onSurfaceDark = Color(0xFFF)
-
-//

@@ -1,38 +1,26 @@
 package com.moa.pomodoroapps
 
-import android.graphics.Paint.Style
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
+import com.moa.pomodoroapps.ui.theme.FontColor
+import com.moa.pomodoroapps.ui.theme.Heading_H2
 
 
 @Composable
 fun HomeScreen() {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column (modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()){
-            Text(text = "Primary Semi Bold",Style = )
-            Text(text = "Header H1 ")
-            Text(text = "Header H2")
-            Text(text = "Subtitle 1")
-            Text(text = "Subtitle 2")
-            Text(text = "Keterangan 1 ")
-            Text(text = "Keterangan 2 ")
-
-
-
-
-
-
-        }
+    Column(){
+        Text(
+            text = "Tugas",
+            style = Heading_H2,
+            color = MaterialTheme.colors.FontColor,
+            modifier = Modifier
+                .padding(16.dp, 14.dp, 0.dp, 0.dp)
+                .fillMaxWidth()
+        )
 
     }
-
 }

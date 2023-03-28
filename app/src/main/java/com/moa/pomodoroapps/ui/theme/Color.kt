@@ -1,5 +1,6 @@
 package com.moa.pomodoroapps.ui.theme
 
+
 import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 
@@ -8,11 +9,9 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-
-
 //Primary
 
-val Colors.Pink
+val  Colors.Pink
     get() = if (isLight) Color(0xFFF24F76)
     else Color(0xFFF24F76)
 val Colors.Yellow
@@ -42,7 +41,7 @@ val Colors.Red
 
 
 //Secondary
-val Colors.PinkSoft
+val  Colors.PinkSoft
     get() = if (isLight) Color(0xFFFA7897)
     else Color(0xFFFA7897)
 val Colors.YellowSoft
@@ -102,3 +101,72 @@ val Colors.asset_Lines
 
 
 
+
+/*
+//PRIMARY
+val  button_pink_primary : Color
+    get() = Color(0xFFF24F76)
+val  button_green_primary  : Color
+    get() = Color(0xFF5AAC46)
+val  button_yellow_primary   : Color
+    get() = Color(0xFFFEC260)
+
+
+val  button_red_sc   : Color
+    get() = Color(0xFFED3434)
+
+val  button_grey_low_sc   : Color
+    get() = Color(0xFFF3F3F3)
+val  button_grey_high_sc   : Color
+    get() =Color(0xFF919191)
+val  button_bluedark_low   : Color
+    get() = Color(0xFF28476C)
+
+val Colors.button_bluedark   : Color
+    get() = if (isLight) Color(0xFF0A2647)
+    else Color(0xFF2C2C2E)
+
+val  button_white   : Color
+    get() = Color(0xFFF3F3F3)
+val  button_grey_low   : Color
+    get() = Color(0xFFC9C9C9)
+
+//WARNA FONT
+//PRIMARY
+val  font_black_primary: Color
+    get() = Color(0xFF252525)
+
+val  font_white_primary    : Color
+    get() = Color(0xFFF9F9F9)
+
+//SECONDARY
+val  font_grey_medium_sc     : Color
+    get() = Color(0xFFB9B9B9)
+val  font_red_low_sc     : Color
+    get() = Color(0xFFE95760)
+val  font_green_high_sc     : Color
+    get() = Color(0xFF6AC953)
+val  font_blue_low_sc     : Color
+    get() =  Color(0xFF6B829D)
+val  font_pink_low_sc     : Color
+    get() =  Color(0xFFFBB5C5)
+
+//WARNA ASSET
+val asset_pink      : Color
+    get() = Color(0xFFE95760)
+val  icon_black      : Color
+    get() =  Color(0xFF252525)
+val  icon_grey      : Color
+    get() =  Color(0xFFB8CEE0)
+val  asset_line      : Color
+    get() = Color(0xFFEEEEEE)
+
+
+val asset_light_pink : Color
+    get() = Color(0xFFFA7897)
+
+
+val bgWhite : Color
+    get() = Color(0xFFF9F9F9)
+
+*/

@@ -10,9 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.moa.pomodoroapps.todo.data.MainContent
 import com.moa.pomodoroapps.ui.theme.PomodoroAppsTheme
+import com.moa.pomodoroapps.ui.theme.backgroundColor
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+@ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,24 +28,14 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.backgroundColor
                 ) {
-                    HomeScreen()
+                    //Greeting(name = "Android")
+                    //MainContent()
+                    MainScreen()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PomodoroAppsTheme {
-        Greeting("Android")
-    }
-}

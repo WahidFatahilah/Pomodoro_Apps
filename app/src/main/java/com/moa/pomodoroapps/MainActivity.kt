@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.moa.pomodoroapps.todo.data.MainContent
-import com.moa.pomodoroapps.ui.theme.PomodoroAppsTheme
-import com.moa.pomodoroapps.ui.theme.backgroundColor
+
+import com.moa.pomodoroapps.presentation.ui.theme.PomodoroAppsTheme
+import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,8 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.backgroundColor
                 ) {
-                    //Greeting(name = "Android")
-                    //MainContent()
+
                     MainScreen()
                 }
             }

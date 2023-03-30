@@ -67,7 +67,6 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version" // Pager Indicators
 
     def room_version = "2.5.0"
-
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
@@ -75,17 +74,11 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
-    def lifecycle_version = "2.5.1"
 
+    def lifecycle_version = "2.5.1"
     implementation"androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-
-
-
-
-
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

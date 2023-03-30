@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.presentation.ui.screen.PomodoroScreen
+import com.moa.pomodoroapps.presentation.ui.screen.Project.ProjectScreen
 import com.moa.pomodoroapps.presentation.ui.screen.StatistikScreen
 import com.moa.pomodoroapps.todo.data.HomeContent
 import com.moa.pomodoroapps.todo.data.PomodoroTimer
@@ -23,7 +24,7 @@ fun BottomNavGraph(navController: NavHostController) {
         }
 
         composable(route = BottomBarScreen.Pomodoro.route){
-            PomodoroScreen()
+            ProjectScreen()
         }
 
 

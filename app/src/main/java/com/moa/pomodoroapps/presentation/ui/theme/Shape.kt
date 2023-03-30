@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.ui.theme
+package com.moa.pomodoroapps.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

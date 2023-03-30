@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.ui.theme
+package com.moa.pomodoroapps.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -8,16 +8,15 @@ import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
-
     primaryVariant = Purple700,
-    secondary = Teal200
-)
+    secondary = Teal200,
+
+    )
 
 private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
-    secondary = Teal200,
-    LightPrimaryButton = LightPrimaryButton
+    secondary = Teal200
 
     /* Other default colors to override
     background = Color.White,

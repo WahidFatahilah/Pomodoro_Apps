@@ -13,12 +13,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBar
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomNavGraph
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.Data.Task
 import com.moa.pomodoroapps.Data.TaskDAO
+import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen
 import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -35,16 +37,14 @@ fun MainScreen() {
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.backgroundColor,
-
         // topBar = { CustomTopAppBar() },
 
         bottomBar = { BottomBar(navController = navController) },
 
         // modifier = Modifier.padding(top = 40.dp)
-
         ) {
         // SCAFFOLD KONTEN
         BottomNavGraph(navController = navController)
     }
-}
 
+}

@@ -14,7 +14,7 @@ import com.moa.pomodoroapps.presentation.ui.theme.Grey
 import com.moa.pomodoroapps.presentation.ui.theme.Pink
 import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
 
-@Composable
+/*@Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomBarScreen.Home,
@@ -39,7 +39,34 @@ fun BottomBar(navController: NavHostController) {
         }
     }
 
+}*/
+@Composable
+fun BottomBar(navController: NavHostController) {
+    val screens: List<BottomBarScreen> = listOf(
+        BottomBarScreen.Home,
+        BottomBarScreen.Pomodoro,
+        BottomBarScreen.Statistik,
+    )
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    if (currentDestination?.route in screens.map { it.route }) {
+        BottomNavigation(
+            backgroundColor = MaterialTheme.colors.backgroundColor,
+            elevation = 10.dp
+        ) {
+            screens.forEach { screen ->
+                AddItem(
+                    screen = screen,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
+        }
+    }
 }
+
 
 @Composable
 fun RowScope.AddItem(

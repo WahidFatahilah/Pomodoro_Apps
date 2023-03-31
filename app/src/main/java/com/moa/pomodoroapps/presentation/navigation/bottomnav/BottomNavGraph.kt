@@ -27,9 +27,9 @@ fun BottomNavGraph(navController: NavHostController) {
             ProjectScreen()
         }
 
-
         composable(route = BottomBarScreen.Statistik.route){
             StatistikScreen()
         }
+
     }
 }

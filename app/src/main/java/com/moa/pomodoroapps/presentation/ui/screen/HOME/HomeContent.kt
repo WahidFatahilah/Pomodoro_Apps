@@ -26,11 +26,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.moa.pomodoroapps.MainViewModel
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen
+import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen.Home.title
+import com.moa.pomodoroapps.presentation.navigation.topnav.CustomTopAppBar
+import com.moa.pomodoroapps.presentation.ui.PomodoroScreenViewModel
 import com.moa.pomodoroapps.presentation.ui.screen.PomodoroScreen
+import com.moa.pomodoroapps.presentation.ui.theme.*
 import com.moa.pomodoroapps.todo.components.EditDialog
 import com.moa.pomodoroapps.todo.components.TaskList
-import com.moa.pomodoroapps.presentation.ui.theme.Magenta
-import com.moa.pomodoroapps.presentation.ui.theme.Pink
 import kotlinx.coroutines.Job
 
 
@@ -39,38 +41,18 @@ import kotlinx.coroutines.Job
 fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     val navController = rememberNavController()
 
+
     if (viewModel.isShowDialog) {
         EditDialog(  )
     }
 
-    Scaffold(
-        floatingActionButton = {
-        FloatingActionButton(
-            onClick = { viewModel.isShowDialog = true },
-            backgroundColor = MaterialTheme.colors.Pink,
-            contentColor = MaterialTheme.colors.Magenta
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Create New",
-            )
-        }
-    },
-        modifier = Modifier.padding(bottom = 64.dp)
-    ) { //it ->
-        innerPadding ->
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
         val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        /*TaskList(
-            tasks = tasks,
-            onClickRow = {
-                viewModel.setEditingTask(it)
-                viewModel.isShowDialog = true
-            },
-            onClickDelete = { viewModel.deleteTask(it) },
-            onClickPlayPomo = {
-               *//* goto pomodoro timer with  send data task name  *//*
-            }
-        )*/
         NavHost(navController, startDestination = "tasks") {
             composable("tasks") {
                 TaskList(
@@ -97,7 +79,61 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
         }
 
     }
+    /*Scaffold(
+        *//*floatingActionButton = {
+        FloatingActionButton(
+            onClick = { viewModel.isShowDialog = true },
+            backgroundColor = MaterialTheme.colors.Pink,
+            contentColor = MaterialTheme.colors.Magenta
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Create New",
+            )
+        }
+    },*//*
+        modifier = Modifier.padding(bottom = 64.dp)
+    ) { //it ->
+        innerPadding ->
+        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+        *//*TaskList(
+            tasks = tasks,
+            onClickRow = {
+                viewModel.setEditingTask(it)
+                viewModel.isShowDialog = true
+            },
+            onClickDelete = { viewModel.deleteTask(it) },
+            onClickPlayPomo = {
+               *//**//* goto pomodoro timer with  send data task name  *//**//*
+            }
+        )*//*
+        NavHost(navController, startDestination = "tasks") {
+            composable("tasks") {
+                TaskList(
+                    tasks = tasks,
+                    onClickRow = {
+                        viewModel.setEditingTask(it)
+                        viewModel.isShowDialog = true
+                    },
+                    onClickDelete = { viewModel.deleteTask(it) },
+                    onClickPlayPomo = { task ->
+                        navController.navigate("pomodoro/${tasks}")
+                    }
+                )
+            }
+            composable(
+                "pomodoro/{taskName}",
+                arguments = listOf(navArgument("taskName") { defaultValue = "" })
+            ) { backStackEntry ->
+                val taskName = backStackEntry.arguments?.getString("taskName") ?: ""
+                //navController.navigate(PomodoroScreen())
+                PomodoroScreen()
+            }
 
+        }
+
+    }
+*/
 }
 
 

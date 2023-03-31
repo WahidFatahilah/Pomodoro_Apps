@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.DI
+package com.moa.pomodoroapps.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

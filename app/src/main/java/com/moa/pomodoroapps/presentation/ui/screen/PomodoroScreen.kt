@@ -22,30 +22,122 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun PomodoroScreen() {
-    var duration by remember { mutableStateOf(1500L) }
+    var durationPomodoro by remember { mutableStateOf(15L) }
+    var durationShortBreak by remember { mutableStateOf(5L) }
+    var durationLongBreak by remember { mutableStateOf(10L) }
     var namaKegiatan by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(10L) }
+    var remainingTimePomodoro by remember { mutableStateOf(10L) }
+    var remainingTimeShortBreak by remember { mutableStateOf(10L) }
+    var remainingTimeLongBreak by remember { mutableStateOf(10L) }
     var isRunning by remember { mutableStateOf(mutableStateOf(false)) }
     var isPaused by remember { mutableStateOf(mutableStateOf(false)) }
     var showTimerDialog by remember { mutableStateOf(false) }
     val nameList = listOf("Mengerjakan Pr", "Membaca Buku", "Mendengar Podcast",)
     var selectedName by remember { mutableStateOf(nameList[0]) }
     var showDialog by remember { mutableStateOf(false) }
+    var sessionCount by remember { mutableStateOf(1) }
+    var sessionCountPomodoro by remember { mutableStateOf(1) }
+    var sessionCountShortBreak by remember { mutableStateOf(1) }
+    var isPomodoro by remember { mutableStateOf(true) }
+    var isShortBreak by remember { mutableStateOf(false) }
+    var isLongBreak by remember { mutableStateOf(false) }
 
+    
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (isRunning.value) {
-            TimerPomodoro(
-                nameList = nameList,
-                selectedName = selectedName,
-                duration = duration,
-                remainingTime = remainingTime,
-                isPaused = isPaused,
-                isRunning = isRunning,
-
+            if(isPomodoro == true){
+                TimerPomodoro(
+                    nameList = nameList,
+                    selectedName = selectedName,
+                    durationPomodoro = durationPomodoro,
+                    durationShortBreak = durationShortBreak,
+                    durationLongBreak = durationLongBreak,
+                    remainingTimePomodoro = remainingTimePomodoro,
+                    remainingTimeShortBreak = remainingTimeShortBreak,
+                    remainingTimeLongBreak = remainingTimeShortBreak,
+                    isPaused = isPaused,
+                    isRunning = isRunning,
+                    isPomodoro = isPomodoro,
+                    isShortBreak = isShortBreak,
+                    isLongBreak = isLongBreak,
+                    sessionCount = sessionCount,
+                    sessionCountPomodoro = sessionCountPomodoro,
+                    sessionCountShortBreak = sessionCountShortBreak,
+                    onSessionComplete = {
+                      /*  isRunning.value = false
+                        isPomodoro = false
+                        isShortBreak = true*/
+                        //showDialog = true
+                        //sessionCount++
+                        /*if (sessionCount <= 3) {
+                            showDialog = true
+                            remainingTimePomodoro = 300L
+                            durationPomodoro = remainingTimePomodoro
+                        } else {
+                            sessionCount = 1
+                            remainingTimePomodoro = 900L
+                            durationPomodoro = remainingTimePomodoro
+                        }*/
+                    }
                 )
+            }
+            if(isShortBreak == true){
+                TimerPomodoro(
+                    nameList = nameList,
+                    selectedName = selectedName,
+                    durationPomodoro = durationPomodoro,
+                    durationShortBreak = durationShortBreak,
+                    durationLongBreak = durationLongBreak,
+                    remainingTimePomodoro = remainingTimePomodoro,
+                    remainingTimeShortBreak = remainingTimeShortBreak,
+                    remainingTimeLongBreak = remainingTimeShortBreak,
+                    isPaused = isPaused,
+                    isRunning = isRunning,
+                    isPomodoro = isPomodoro,
+                    isShortBreak = isShortBreak,
+                    isLongBreak = isLongBreak,
+                    sessionCount = sessionCount,
+                    sessionCountPomodoro = sessionCountPomodoro,
+                    sessionCountShortBreak = sessionCountShortBreak,
+                    onSessionComplete = {
+                        /*isRunning.value = false
+                        isPomodoro = true
+                        isShortBreak = false*/
+                        sessionCount++
+                        //showDialog = true
+                    }
+                )
+            }
+            if(isLongBreak == true) {
+                TimerPomodoro(
+                    nameList = nameList,
+                    selectedName = selectedName,
+                    durationPomodoro = durationPomodoro,
+                    durationShortBreak = durationShortBreak,
+                    durationLongBreak = durationLongBreak,
+                    remainingTimePomodoro = remainingTimePomodoro,
+                    remainingTimeShortBreak = remainingTimeShortBreak,
+                    remainingTimeLongBreak = remainingTimeShortBreak,
+                    isPaused = isPaused,
+                    isRunning = isRunning,
+                    isPomodoro = isPomodoro,
+                    isShortBreak = isShortBreak,
+                    isLongBreak = isLongBreak,
+                    sessionCount = sessionCount,
+                    sessionCountPomodoro = sessionCountPomodoro,
+                    sessionCountShortBreak = sessionCountShortBreak,
+                    onSessionComplete = {
+                      /*  isRunning.value = false
+                        isLongBreak = false
+                        isPomodoro = true*/
+                        //showDialog = true
+                        //sessionCount == 1
+                        //sessionCount++
+                    })
+            }
 
         } else {
             Column(
@@ -55,17 +147,39 @@ fun PomodoroScreen() {
                 verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                /*Image(
-                    painter = painterResource(id = R.drawable.splashscreen),
-                    contentDescription = "gambar splash screen",
-                )*/
                 OutlinedTextField(
-                    value = duration.toString(),
+                    value = durationPomodoro.toString(),
                     onValueChange = { input ->
-                        duration = if (input.isEmpty()) 0 else input.toLong()
-                        remainingTime = duration * 1000
+                        durationPomodoro = if (input.isEmpty()) 0 else input.toLong()
+                        remainingTimePomodoro = durationPomodoro * 1000
                     },
-                    label = { Text("Duration in seconds") },
+                    label = { Text("Duration Pomodoro in seconds") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = durationShortBreak.toString(),
+                    onValueChange = { input ->
+                        durationShortBreak = if (input.isEmpty()) 0 else input.toLong()
+                        remainingTimeShortBreak = durationShortBreak * 1000
+                    },
+                    label = { Text("Duration Short Break in seconds") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = durationLongBreak.toString(),
+                    onValueChange = { input ->
+                        durationLongBreak = if (input.isEmpty()) 0 else input.toLong()
+                        remainingTimeLongBreak = durationLongBreak * 1000
+                    },
+                    label = { Text("Duration Long Break in seconds") },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,9 +190,8 @@ fun PomodoroScreen() {
                 Button(
                     onClick = {
                         isRunning.value = true
-                        remainingTime = duration * 1000
-                    },
-                    //* modifier = Modifier.align(Alignment.BottomCenter)*//*
+                        remainingTimePomodoro = durationPomodoro * 1000
+                    }
                 ) {
                     Text(text = "START")
                 }
@@ -89,27 +202,99 @@ fun PomodoroScreen() {
     LaunchedEffect(Unit) {
         while (true) {
             delay(1000)
-
-            if (isRunning.value && remainingTime > 0 && !isPaused.value) {
-
-                remainingTime -= 1000
-
-            } else if (remainingTime == 0L) {
-
-                showDialog = true
+            if (isPomodoro) {
+                if (isRunning.value && remainingTimePomodoro > 0 && !isPaused.value) {
+                    remainingTimePomodoro -= 1000
+                } else if (remainingTimePomodoro == 0L) {
+                    isPomodoro = false
+                    isShortBreak = true
+                    showDialog = true
+                }
             }
-
+            if (isShortBreak == true) {
+                if (isRunning.value && remainingTimeShortBreak > 0 && !isPaused.value) {
+                    remainingTimeShortBreak -= 1000
+                } else if (remainingTimeShortBreak == 0L) {
+                    isShortBreak = false
+                    isPomodoro = true
+                    showDialog = true
+                    sessionCount=+1
+                }
+            }
+            if (isLongBreak == true) {
+                if (isRunning.value && remainingTimeLongBreak > 0 && !isPaused.value) {
+                    remainingTimeLongBreak -= 1000
+                } else if (remainingTimeLongBreak == 0L) {
+                    isLongBreak = false
+                    isPomodoro = true
+                    showDialog = true
+                    sessionCount=1
+                }
+            }
         }
-
     }
 
     if (showDialog) {
+        isRunning.value = false
         AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text("Timer finished!") },
-            text = { Text("The timer has finished counting down.") },
+            onDismissRequest = {
+                showDialog = false
+                isPaused.value = true
+            },
+            title = {
+                if (isPomodoro == true){
+                    Text("Selesai Istirahat  Lanjutkan Sesi Pomodoro ")
+                } else if (isShortBreak == true){
+                    Text("Session $sessionCount Completed!")
+                } else if (isLongBreak == true){
+                    Text("Session $sessionCount Completed!")
+                }
+                    },
+            text = {
+                //Text("Take a ${if (sessionCount == 3) "long" else "short"} break\nRemaining time: ${formatTime(remainingTime)}")
+                /*if (sessionCount == 1){
+                    Text(" Lanjutkan Istirahat Pendek Pertama")
+                }else if  (sessionCount == 2){
+                    Text("Lanjutkan Istirahat Pendek Kedua")
+                }else if  (sessionCount == 3){
+                    Text("Lanjutkan Istirahat Panjang")
+                }else if  (sessionCount == 4){
+                    Text("Lanjutkan Istirahat Panjang")
+                }*/
+                   Text("sesi ke $sessionCount")
+            },
             confirmButton = {
-                Button(onClick = {  }) {
+                Button(onClick = {
+                    /*if (sessionCount == 3) {
+                        remainingTimePomodoro = 900L
+                        durationPomodoro = remainingTimePomodoro
+                    } else {
+                        remainingTimePomodoro = 300L
+                        durationPomodoro = remainingTimePomodoro
+                    }*/
+
+
+
+
+                            if (isPomodoro == true ){
+                                showDialog = false
+                                remainingTimePomodoro = durationPomodoro * 1000
+                                isRunning.value = true
+                            }else if(isShortBreak == true){
+                                showDialog = false
+                                remainingTimeShortBreak = durationShortBreak * 1000
+                                isRunning.value = true
+                            } else if(isLongBreak == true) {
+                                isLongBreak = true
+                                isRunning.value = true
+                                showDialog = false
+                                remainingTimeLongBreak = durationLongBreak * 1000
+                            }
+
+
+
+
+                }) {
                     Text("OK")
                 }
             }
@@ -121,26 +306,27 @@ fun PomodoroScreen() {
 
 @Composable
 fun TimerPomodoro(
-    nameList : List<String>,
-    selectedName : String,
-    duration: Long,
-    remainingTime: Long,
+    nameList: List<String>,
+    selectedName: String,
+    durationPomodoro: Long,
+    //remainingTime: Long,
     isPaused: MutableState<Boolean>,
-    isRunning : MutableState<Boolean>,
+    isRunning: MutableState<Boolean>,
+    sessionCount: Int,
+    onSessionComplete: () -> Unit,
+    durationShortBreak: Long,
+    durationLongBreak: Long,
+    isPomodoro: Boolean,
+    isShortBreak: Boolean,
+    isLongBreak: Boolean,
+    remainingTimePomodoro: Long,
+    remainingTimeShortBreak: Long,
+    remainingTimeLongBreak: Long,
+    sessionCountPomodoro: Int,
+    sessionCountShortBreak: Int,
 ){
     //PlayLocalAudio()
     Column(modifier = Modifier.fillMaxSize()) {
-        /*CountDownTopBar(
-            title = "Timer",
-            onBackClick = { isRunning.value = false },
-            onAudioClick = { *//* handle audio button click *//* }
-        )
-        NameDropDownList(
-            nameList = nameList,
-            selectedName = selectedName,
-            onNameSelected = { selectedName
-            }
-        )*/
         Spacer(modifier = Modifier.height(10.dp))
         Box(
             modifier = Modifier
@@ -149,17 +335,51 @@ fun TimerPomodoro(
             contentAlignment = Alignment.Center
         )
         {
-            CircularProgressBar(
-                progress = (duration - remainingTime / 1000f) / duration,
-                modifier = Modifier.size(400.dp),
-                strokeWidth = 35.dp,
-            )
-            Text(
-                text = formatTime(remainingTime),
-                fontSize = 50.sp,
-                color = MaterialTheme.colors.primaryVariant,
-                fontWeight = FontWeight.Bold
-            )
+            if(isPomodoro == true) {
+                CircularProgressBar(
+                    progress = (durationPomodoro - remainingTimePomodoro / 1000f) / durationPomodoro,
+                    modifier = Modifier.size(400.dp),
+                    strokeWidth = 35.dp,
+                )
+                Text(
+                    text = formatTime(remainingTimePomodoro),
+                    fontSize = 50.sp,
+                    color = MaterialTheme.colors.primaryVariant,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            if(isShortBreak == true) {
+
+                CircularProgressBar(
+                    progress = (durationShortBreak - remainingTimeShortBreak / 1000f) / durationShortBreak,
+                    modifier = Modifier.size(400.dp),
+                    strokeWidth = 35.dp,
+                )
+                Text(
+                    text = formatTime(remainingTimeShortBreak),
+                    fontSize = 50.sp,
+                    color = MaterialTheme.colors.primaryVariant,
+                    fontWeight = FontWeight.Bold
+                )
+
+            }
+
+            if(isLongBreak == true) {
+                CircularProgressBar(
+                    progress = (durationLongBreak - remainingTimeLongBreak / 1000f) / durationLongBreak,
+                    modifier = Modifier.size(400.dp),
+                    strokeWidth = 35.dp,
+                )
+
+                Text(
+                    text = formatTime(remainingTimeLongBreak),
+                    fontSize = 50.sp,
+                    color = MaterialTheme.colors.primaryVariant,
+                    fontWeight = FontWeight.Bold
+                )
+
+            }
+
         }
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -185,15 +405,22 @@ fun TimerPomodoro(
                     Text(text = "RESUME")
                 }
                 Button(
-                    onClick = { isRunning.value = false },
+                    onClick = {
+                        isRunning.value = false
+                        onSessionComplete()
+                    },
                     enabled = !isPaused.value
                 ) {
                     Text(text = "STOP")
                 }
+                Text(text = "Session $sessionCount/3", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
         }
+
     }
 }
+
+
 /*
 @Composable
 fun PlayLocalAudio() {
@@ -272,5 +499,4 @@ fun CircularProgressBar(
         }
     }
 }
-
 

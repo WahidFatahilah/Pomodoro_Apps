@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.DI
+package com.moa.pomodoroapps.di
 
 import android.content.Context
 import androidx.room.Room

@@ -67,20 +67,7 @@ fun PomodoroScreen() {
                     sessionCountPomodoro = sessionCountPomodoro,
                     sessionCountShortBreak = sessionCountShortBreak,
                     onSessionComplete = {
-                      /*  isRunning.value = false
-                        isPomodoro = false
-                        isShortBreak = true*/
-                        //showDialog = true
-                        //sessionCount++
-                        /*if (sessionCount <= 3) {
-                            showDialog = true
-                            remainingTimePomodoro = 300L
-                            durationPomodoro = remainingTimePomodoro
-                        } else {
-                            sessionCount = 1
-                            remainingTimePomodoro = 900L
-                            durationPomodoro = remainingTimePomodoro
-                        }*/
+
                     }
                 )
             }
@@ -103,11 +90,7 @@ fun PomodoroScreen() {
                     sessionCountPomodoro = sessionCountPomodoro,
                     sessionCountShortBreak = sessionCountShortBreak,
                     onSessionComplete = {
-                        /*isRunning.value = false
-                        isPomodoro = true
-                        isShortBreak = false*/
-                        sessionCount++
-                        //showDialog = true
+
                     }
                 )
             }
@@ -130,13 +113,9 @@ fun PomodoroScreen() {
                     sessionCountPomodoro = sessionCountPomodoro,
                     sessionCountShortBreak = sessionCountShortBreak,
                     onSessionComplete = {
-                      /*  isRunning.value = false
-                        isLongBreak = false
-                        isPomodoro = true*/
-                        //showDialog = true
-                        //sessionCount == 1
-                        //sessionCount++
-                    })
+
+                    }
+                )
             }
 
         } else {
@@ -197,6 +176,7 @@ fun PomodoroScreen() {
                 }
             }
         }
+
     }
 
     LaunchedEffect(Unit) {
@@ -206,29 +186,37 @@ fun PomodoroScreen() {
                 if (isRunning.value && remainingTimePomodoro > 0 && !isPaused.value) {
                     remainingTimePomodoro -= 1000
                 } else if (remainingTimePomodoro == 0L) {
-                    isPomodoro = false
-                    isShortBreak = true
-                    showDialog = true
+                    if(sessionCount ==2) {
+                        isPomodoro = false
+                        isShortBreak = true
+                        showDialog = true
+                    } else {
+                        isPomodoro = false
+                        isShortBreak = true
+                        showDialog = true
+                    }
+
                 }
             }
-            if (isShortBreak == true) {
+            if (isShortBreak) {
                 if (isRunning.value && remainingTimeShortBreak > 0 && !isPaused.value) {
                     remainingTimeShortBreak -= 1000
                 } else if (remainingTimeShortBreak == 0L) {
-                    isShortBreak = false
-                    isPomodoro = true
-                    showDialog = true
-                    sessionCount=+1
+                    if(sessionCount== 2){
+                        isPomodoro = false
+                        isShortBreak = true
+                        showDialog = true
+                    }else if (sessionCount == 3 ){}
+                        else{ isShortBreak = false
+                        isPomodoro = true
+                        showDialog = true }
                 }
             }
             if (isLongBreak == true) {
                 if (isRunning.value && remainingTimeLongBreak > 0 && !isPaused.value) {
                     remainingTimeLongBreak -= 1000
                 } else if (remainingTimeLongBreak == 0L) {
-                    isLongBreak = false
-                    isPomodoro = true
                     showDialog = true
-                    sessionCount=1
                 }
             }
         }
@@ -242,58 +230,66 @@ fun PomodoroScreen() {
                 isPaused.value = true
             },
             title = {
-                if (isPomodoro == true){
-                    Text("Selesai Istirahat  Lanjutkan Sesi Pomodoro ")
+                if (isPomodoro == true ){
+                    Text("Selesai Istirahat  Lanjutkan Sesi Pomodoro Berikutnya")
                 } else if (isShortBreak == true){
-                    Text("Session $sessionCount Completed!")
+                    if (sessionCount == 2 ) {
+                        Text(text = "Pomodoro Session $sessionCount Completed!")
+                    } else {Text("Pomodoro Session $sessionCount Completed!")}
+
                 } else if (isLongBreak == true){
-                    Text("Session $sessionCount Completed!")
+                    Text("Pomodoro Session $sessionCount Completed!")
                 }
                     },
             text = {
                 //Text("Take a ${if (sessionCount == 3) "long" else "short"} break\nRemaining time: ${formatTime(remainingTime)}")
-                /*if (sessionCount == 1){
-                    Text(" Lanjutkan Istirahat Pendek Pertama")
-                }else if  (sessionCount == 2){
-                    Text("Lanjutkan Istirahat Pendek Kedua")
-                }else if  (sessionCount == 3){
-                    Text("Lanjutkan Istirahat Panjang")
-                }else if  (sessionCount == 4){
-                    Text("Lanjutkan Istirahat Panjang")
-                }*/
-                   Text("sesi ke $sessionCount")
+                if (isPomodoro == true ){
+                    Text("Istirahat Selesai Saatnya Lanjutkan Sesi Pomodoro")
+                }
+                if (isShortBreak == true){
+                     if(sessionCount == 2 ){
+                         Text("Mantab Istirahat Pendek Pomodoro $sessionCount selesai, Saatnya Lanjut Pomodoro Sesi 3")
+                     } else {Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Pendek")}
+
+                } else if (isLongBreak == true){
+                    Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Panjang")
+                }
             },
             confirmButton = {
                 Button(onClick = {
-                    /*if (sessionCount == 3) {
-                        remainingTimePomodoro = 900L
-                        durationPomodoro = remainingTimePomodoro
-                    } else {
-                        remainingTimePomodoro = 300L
-                        durationPomodoro = remainingTimePomodoro
-                    }*/
-
-
-
-
-                            if (isPomodoro == true ){
+                            if (isPomodoro == true) {
+                                isShortBreak = false
+                                isLongBreak = false
                                 showDialog = false
                                 remainingTimePomodoro = durationPomodoro * 1000
                                 isRunning.value = true
-                            }else if(isShortBreak == true){
-                                showDialog = false
-                                remainingTimeShortBreak = durationShortBreak * 1000
-                                isRunning.value = true
+                                if (sessionCount == 1) {
+                                    sessionCount++
+                                } else if (sessionCount == 2) {
+                                    sessionCount++
+                                } else(sessionCount++)
+
+                            } else if(isShortBreak == true){
+                                if(sessionCount==2){
+                                  isPomodoro = true
+                                  isShortBreak = false
+                                  isLongBreak = false
+                                    remainingTimePomodoro = durationPomodoro * 1000
+                                    isRunning.value = true
+                                } else{
+                                    isPomodoro = false
+                                    isLongBreak = false
+                                    showDialog = false
+                                    remainingTimeShortBreak = durationShortBreak * 1000
+                                    isRunning.value = true
+                                }
                             } else if(isLongBreak == true) {
-                                isLongBreak = true
+                                isPomodoro = false
+                                isShortBreak = false
                                 isRunning.value = true
                                 showDialog = false
                                 remainingTimeLongBreak = durationLongBreak * 1000
                             }
-
-
-
-
                 }) {
                     Text("OK")
                 }
@@ -353,12 +349,13 @@ fun TimerPomodoro(
                 CircularProgressBar(
                     progress = (durationShortBreak - remainingTimeShortBreak / 1000f) / durationShortBreak,
                     modifier = Modifier.size(400.dp),
+                    color = MaterialTheme.colors.secondary,
                     strokeWidth = 35.dp,
                 )
                 Text(
                     text = formatTime(remainingTimeShortBreak),
                     fontSize = 50.sp,
-                    color = MaterialTheme.colors.primaryVariant,
+                    color = MaterialTheme.colors.secondary,
                     fontWeight = FontWeight.Bold
                 )
 

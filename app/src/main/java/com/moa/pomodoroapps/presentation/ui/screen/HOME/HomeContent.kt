@@ -1,20 +1,14 @@
-package com.moa.pomodoroapps.todo.data
+package com.moa.pomodoroapps.presentation.ui.screen.HOME
 
-import CountDownTimerPomo
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.material.R
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -25,10 +19,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.moa.pomodoroapps.MainViewModel
-import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen
-import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen.Home.title
-import com.moa.pomodoroapps.presentation.navigation.topnav.CustomTopAppBar
-import com.moa.pomodoroapps.presentation.ui.PomodoroScreenViewModel
 import com.moa.pomodoroapps.presentation.ui.screen.PomodoroScreen
 import com.moa.pomodoroapps.presentation.ui.theme.*
 import com.moa.pomodoroapps.todo.components.EditDialog
@@ -43,7 +33,7 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
 
 
     if (viewModel.isShowDialog) {
-        EditDialog(  )
+        EditDialog()
     }
 
     Column(
@@ -64,6 +54,9 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
                     onClickDelete = { viewModel.deleteTask(it) },
                     onClickPlayPomo = { task ->
                         navController.navigate("pomodoro/${tasks}")
+                    },
+                    onClickDone= {
+                        viewModel.CheckBoxDone(it)
                     }
                 )
             }
@@ -75,9 +68,7 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
                 //navController.navigate(PomodoroScreen())
                 PomodoroScreen()
             }
-
         }
-
     }
     /*Scaffold(
         *//*floatingActionButton = {
@@ -279,4 +270,5 @@ fun formatTime(seconds: Int): String {
 
 fun formatPercent(progress: Float): String {
     return "%.0f%%".format(progress * 100)
-}}
+}
+}

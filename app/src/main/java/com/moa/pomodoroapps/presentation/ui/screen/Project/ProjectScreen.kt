@@ -1,22 +1,26 @@
 package com.moa.pomodoroapps.presentation.ui.screen.Project
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.moa.pomodoroapps.MainViewModel
-
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun ProjectScreen(viewModel: MainViewModel = hiltViewModel(),) {
-
+    var pickedDate by remember {  mutableStateOf(LocalDate.now()) }
+    val formattedDate by remember {  derivedStateOf {  DateTimeFormatter .ofPattern("MMM dd yyyy").format(pickedDate) } }
+    val dateDialogState = rememberMaterialDialogState()
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         DisposableEffect(Unit) {
@@ -26,12 +30,62 @@ fun ProjectScreen(viewModel: MainViewModel = hiltViewModel(),) {
 
         }
         Column() {
-            Text(text = "Title")
+
+            Text(text = "Project Name")
+            TextField(value = viewModel.project, onValueChange = { viewModel.project = it })
+            Text(text = "Task Name")
             TextField(value = viewModel.title, onValueChange = { viewModel.title = it })
+
             Text(text = "Description")
             TextField(
                 value = viewModel.description,
                 onValueChange = { viewModel.description = it })
+            Text(text = "Deadline")
+            var pickedDate by remember {
+                mutableStateOf(LocalDate.now())
+            }
+            val formattedDate by remember {
+                derivedStateOf {
+                    DateTimeFormatter
+                        .ofPattern("MMM dd yyyy")
+                        .format(pickedDate)
+                }
+            }
+
+            val dateDialogState = rememberMaterialDialogState()
+            Column(
+            ) {
+                Button(onClick = {
+                    dateDialogState.show()
+                }) {
+                    Text(text = "Pick date")
+                }
+                Text(text = formattedDate)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            MaterialDialog(
+                dialogState = dateDialogState,
+                buttons = {
+                    positiveButton(text = "Ok") {
+                       /* Toast.makeText(
+                            applicationContext,
+                            "Clicked ok",
+                            Toast.LENGTH_LONG
+                        ).show()*/
+                    }
+                    negativeButton(text = "Cancel")
+                }
+            ) {
+                datepicker(
+                    initialDate = LocalDate.now(),
+                    title = "Pick a date",
+                    /*allowedDateValidator = {
+                    }*/
+                ) {
+                    pickedDate = it
+                }
+            }
+
             Row(
                 modifier = Modifier.padding(8.dp),
                 horizontalArrangement = Arrangement.Center

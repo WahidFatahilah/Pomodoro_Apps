@@ -86,6 +86,9 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.6'
 }
 
 kapt {

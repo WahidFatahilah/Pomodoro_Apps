@@ -12,6 +12,7 @@ import com.moa.pomodoroapps.Data.TaskDAO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -19,14 +20,24 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel() {
     var title by mutableStateOf("")
+    var project by mutableStateOf("")
     var description by mutableStateOf("")
+    var deadline by mutableStateOf(Date())
+    var checkBox by mutableStateOf(false)
     var isShowDialog by mutableStateOf(false)
     var pomodoroTime = TimeUnit.MINUTES.toMillis(25)
     var isRunning = false
 
     val tasks = taskDAO.loadAllTask().distinctUntilChanged()
-
     private var editingTask: Task? = null
+
+    fun CheckBoxDone(task: Task) {
+        viewModelScope.launch {
+            val updatedTask = task.copy(isDone = !task.isDone)
+            taskDAO.updateTask(updatedTask)
+        }
+    }
+
     val isEditing: Boolean
         get() = editingTask != null
 
@@ -39,10 +50,12 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
 
     fun createTask() {
         viewModelScope.launch {
-            var newTask = Task(title = title, description = description)
-            taskDAO.insertTask(newTask)
 
+            var newTask = Task(title = title, description = description, project = project, deadline = deadline, isDone = checkBox)
+            taskDAO.insertTask(newTask)
         }
+
+
     }
 
     fun deleteTask(task: Task) {
@@ -50,6 +63,7 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
             taskDAO.deleteTask(task = task)
         }
     }
+
 
     fun updateTask() {
         editingTask?.let { task ->

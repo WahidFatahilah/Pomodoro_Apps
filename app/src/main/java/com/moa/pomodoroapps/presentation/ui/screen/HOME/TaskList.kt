@@ -10,11 +10,12 @@ fun TaskList(
     tasks: List<Task>,
     onClickRow: (Task) -> Unit,
     onClickDelete: (Task) -> Unit,
+    onClickDone: (Task) -> Unit,
     onClickPlayPomo: (Task) -> Unit,
 ) {
     LazyColumn{
         items(tasks){ task ->
-            TaskRow(task = task, onClickRow = onClickRow, onClickDelete = onClickDelete, onClickPlayPomo = onClickPlayPomo)
+            TaskRow(task = task, onClickRow = onClickRow, onClickDelete = onClickDelete, onClickPlayPomo = onClickPlayPomo, onClickDone = onClickDone)
         }
     }
 }

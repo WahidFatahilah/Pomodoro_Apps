@@ -26,7 +26,7 @@ fun EditDialog(
 
         AlertDialog(
             onDismissRequest = { viewModel.isShowDialog = false },
-            title = { Text(text = if (viewModel.isEditing) "Task Update" else "Create New Task") },
+            title = { Text(text = if (viewModel.isEditing) "Project Update" else "Create New Project") },
             text = {
                 Column() {
                     Text(text = "Title")
@@ -51,9 +51,9 @@ fun EditDialog(
                     Button(modifier = Modifier.width(120.dp), onClick = {
                         viewModel.isShowDialog = false
                         if (viewModel.isEditing) {
-                            viewModel.updateTask()
+                            viewModel.updateProject()
                         } else {
-                            viewModel.createTask()
+                            viewModel.createProject()
                         }
 
                     }) {

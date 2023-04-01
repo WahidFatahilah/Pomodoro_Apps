@@ -7,8 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moa.pomodoroapps.Data.Task
-import com.moa.pomodoroapps.Data.TaskDAO
+import com.moa.pomodoroapps.Data.Project
+import com.moa.pomodoroapps.Data.ProjectDAO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel() {
+class MainViewModel @Inject constructor(private val ProjectDAO: ProjectDAO): ViewModel() {
     var title by mutableStateOf("")
     var project by mutableStateOf("")
     var description by mutableStateOf("")
@@ -28,55 +28,55 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
     var pomodoroTime = TimeUnit.MINUTES.toMillis(25)
     var isRunning = false
 
-    val tasks = taskDAO.loadAllTask().distinctUntilChanged()
-    private var editingTask: Task? = null
+    val Projects = ProjectDAO.loadAllProject().distinctUntilChanged()
+    private var editingProject: Project? = null
 
-    fun CheckBoxDone(task: Task) {
+    fun CheckBoxDone(Project: Project) {
         viewModelScope.launch {
-            val updatedTask = task.copy(isDone = !task.isDone)
-            taskDAO.updateTask(updatedTask)
+            val updatedProject = Project.copy(isDone = !Project.isDone)
+            ProjectDAO.updateProject(updatedProject)
         }
     }
 
     val isEditing: Boolean
-        get() = editingTask != null
+        get() = editingProject != null
 
-    fun setEditingTask(task: Task) {
-        editingTask = task
-        title = task.title
-        description = task.description
+    fun setEditingProject(Project: Project) {
+        editingProject = Project
+        title = Project.title
+        description = Project.description
 
     }
 
-    fun createTask() {
+    fun createProject() {
         viewModelScope.launch {
 
-            var newTask = Task(title = title, description = description, project = project, deadline = deadline, isDone = checkBox)
-            taskDAO.insertTask(newTask)
+            var newProject = Project(title = title, description = description, project = project, deadline = deadline, isDone = checkBox)
+            ProjectDAO.insertProject(newProject)
         }
 
 
     }
 
-    fun deleteTask(task: Task) {
+    fun deleteProject(Project: Project) {
         viewModelScope.launch {
-            taskDAO.deleteTask(task = task)
+            ProjectDAO.deleteProject(Project = Project)
         }
     }
 
 
-    fun updateTask() {
-        editingTask?.let { task ->
+    fun updateProject() {
+        editingProject?.let { Project ->
             viewModelScope.launch {
-                task.title = title
-                task.description = description
-                taskDAO.updateTask(task = task)
+                Project.title = title
+                Project.description = description
+                ProjectDAO.updateProject(Project = Project)
             }
         }
     }
 
     fun resetProperties(){
-        editingTask = null
+        editingProject = null
         title = ""
         description = ""
     }

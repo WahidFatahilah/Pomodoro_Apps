@@ -14,51 +14,51 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moa.pomodoroapps.R
-import com.moa.pomodoroapps.Data.Task
+import com.moa.pomodoroapps.Data.Project
 import java.text.SimpleDateFormat
 
 @Composable
-fun TaskRow(
-    task: Task,
-    onClickRow: (Task) -> Unit,
-    onClickDelete: (Task) -> Unit,
-    onClickDone: (Task) -> Unit,
-    onClickPlayPomo: (Task) -> Unit
+fun ProjectRow(
+    Project: Project,
+    onClickRow: (Project) -> Unit,
+    onClickDelete: (Project) -> Unit,
+    onClickDone: (Project) -> Unit,
+    onClickPlayPomo: (Project) -> Unit
 ) {
 
-   var checkedState = remember { mutableStateOf(task.isDone) }
+   var checkedState = remember { mutableStateOf(Project.isDone) }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(5.dp)
-            .clickable { onClickRow(task) },
+            .clickable { onClickRow(Project) },
         elevation = 5.dp
     ) {
         Row(
             modifier = Modifier
-                .clickable { onClickRow(task) }
+                .clickable { onClickRow(Project) }
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column() {
-                Text(text = task.project, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                Text(text = task.title, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                Text(text = task.description, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                Text(text = task.deadline?.toString() ?: "No Deadline", style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
+                Text(text = Project.project, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
+                Text(text = Project.title, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
+                Text(text = Project.description, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
+                Text(text = Project.deadline?.toString() ?: "No Deadline", style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
             }
             Spacer(modifier = Modifier.weight(1f))
             Checkbox(
                 checked =  checkedState.value,
                 onCheckedChange = { isChecked ->
                     checkedState.value = isChecked
-                    onClickDone(task)
+                    onClickDone(Project)
                 }
             )
-            IconButton(onClick = { onClickDelete(task) }) {
-                Icon(painter = painterResource(id = R.drawable.deletelogo), contentDescription = "Delete TAsk")
+            IconButton(onClick = { onClickDelete(Project) }) {
+                Icon(painter = painterResource(id = R.drawable.deletelogo), contentDescription = "Delete Project")
             }
-            IconButton(onClick = { onClickPlayPomo(task) }) {
+            IconButton(onClick = { onClickPlayPomo(Project) }) {
                 Icon(painter = painterResource(id = R.drawable.ic_play), contentDescription = "Play Pomodoro")
             }
         }
@@ -67,12 +67,12 @@ fun TaskRow(
 
 @Preview
 @Composable
-fun TaskRowPreview() {
+fun ProjectRowPreview() {
     val dateFormat = SimpleDateFormat("MM/dd/yy")
     val date = dateFormat.parse("12/22/22")
 
-    TaskRow(
-        task = Task(project = "Project Name", title = "TaskTesting", description = "LoremIpsum", deadline = date, isDone = false ),
+    ProjectRow(
+        Project = Project(project = "Project Name", title = "ProjectTesting", description = "LoremIpsum", deadline = date, isDone = false ),
         onClickRow ={},
         onClickDelete ={},
         onClickDone = {},

@@ -33,7 +33,7 @@ fun ProjectScreen(viewModel: MainViewModel = hiltViewModel(),) {
 
             Text(text = "Project Name")
             TextField(value = viewModel.project, onValueChange = { viewModel.project = it })
-            Text(text = "Task Name")
+            Text(text = "Project Name")
             TextField(value = viewModel.title, onValueChange = { viewModel.title = it })
 
             Text(text = "Description")
@@ -105,9 +105,9 @@ fun ProjectScreen(viewModel: MainViewModel = hiltViewModel(),) {
                     onClick = {
                         viewModel.isShowDialog = true
                         /*if (viewModel.isEditing) {
-                            viewModel.updateTask()
+                            viewModel.updateProject()
                         } else {
-                            viewModel.createTask()
+                            viewModel.createProject()
                         }*/
                     }
                 ) {
@@ -129,9 +129,9 @@ fun ProjectScreen(viewModel: MainViewModel = hiltViewModel(),) {
                         Button(onClick = {
                             viewModel.isShowDialog = false
                             if (viewModel.isEditing) {
-                                viewModel.updateTask()
+                                viewModel.updateProject()
                             } else {
-                                viewModel.createTask()
+                                viewModel.createProject()
                             }
                             viewModel.description =" "
                             viewModel.title =" "

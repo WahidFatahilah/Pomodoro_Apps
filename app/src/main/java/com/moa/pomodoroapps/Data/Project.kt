@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.Date
 
 @Entity
-data class Task(
+data class Project(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,

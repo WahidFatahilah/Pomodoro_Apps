@@ -22,7 +22,7 @@ import com.moa.pomodoroapps.MainViewModel
 import com.moa.pomodoroapps.presentation.ui.screen.PomodoroScreen
 import com.moa.pomodoroapps.presentation.ui.theme.*
 import com.moa.pomodoroapps.todo.components.EditDialog
-import com.moa.pomodoroapps.todo.components.TaskList
+import com.moa.pomodoroapps.todo.components.ProjectList
 import kotlinx.coroutines.Job
 
 
@@ -42,18 +42,19 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        NavHost(navController, startDestination = "tasks") {
-            composable("tasks") {
-                TaskList(
-                    tasks = tasks,
+        val Projects by viewModel.Projects.collectAsState(initial = emptyList())
+        
+        NavHost(navController, startDestination = "Projects") {
+            composable("Projects") {
+                ProjectList(
+                    Projects = Projects,
                     onClickRow = {
-                        viewModel.setEditingTask(it)
+                        viewModel.setEditingProject(it)
                         viewModel.isShowDialog = true
                     },
-                    onClickDelete = { viewModel.deleteTask(it) },
-                    onClickPlayPomo = { task ->
-                        navController.navigate("pomodoro/${tasks}")
+                    onClickDelete = { viewModel.deleteProject(it) },
+                    onClickPlayPomo = { Project ->
+                        navController.navigate("pomodoro/${Projects}")
                     },
                     onClickDone= {
                         viewModel.CheckBoxDone(it)
@@ -61,10 +62,10 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
                 )
             }
             composable(
-                "pomodoro/{taskName}",
-                arguments = listOf(navArgument("taskName") { defaultValue = "" })
+                "pomodoro/{ProjectName}",
+                arguments = listOf(navArgument("ProjectName") { defaultValue = "" })
             ) { backStackEntry ->
-                val taskName = backStackEntry.arguments?.getString("taskName") ?: ""
+                val ProjectName = backStackEntry.arguments?.getString("ProjectName") ?: ""
                 //navController.navigate(PomodoroScreen())
                 PomodoroScreen()
             }
@@ -86,37 +87,37 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
         modifier = Modifier.padding(bottom = 64.dp)
     ) { //it ->
         innerPadding ->
-        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        *//*TaskList(
-            tasks = tasks,
+        val Projects by viewModel.Projects.collectAsState(initial = emptyList())
+        *//*ProjectList(
+            Projects = Projects,
             onClickRow = {
-                viewModel.setEditingTask(it)
+                viewModel.setEditingProject(it)
                 viewModel.isShowDialog = true
             },
-            onClickDelete = { viewModel.deleteTask(it) },
+            onClickDelete = { viewModel.deleteProject(it) },
             onClickPlayPomo = {
-               *//**//* goto pomodoro timer with  send data task name  *//**//*
+               *//**//* goto pomodoro timer with  send data Project name  *//**//*
             }
         )*//*
-        NavHost(navController, startDestination = "tasks") {
-            composable("tasks") {
-                TaskList(
-                    tasks = tasks,
+        NavHost(navController, startDestination = "Projects") {
+            composable("Projects") {
+                ProjectList(
+                    Projects = Projects,
                     onClickRow = {
-                        viewModel.setEditingTask(it)
+                        viewModel.setEditingProject(it)
                         viewModel.isShowDialog = true
                     },
-                    onClickDelete = { viewModel.deleteTask(it) },
-                    onClickPlayPomo = { task ->
-                        navController.navigate("pomodoro/${tasks}")
+                    onClickDelete = { viewModel.deleteProject(it) },
+                    onClickPlayPomo = { Project ->
+                        navController.navigate("pomodoro/${Projects}")
                     }
                 )
             }
             composable(
-                "pomodoro/{taskName}",
-                arguments = listOf(navArgument("taskName") { defaultValue = "" })
+                "pomodoro/{ProjectName}",
+                arguments = listOf(navArgument("ProjectName") { defaultValue = "" })
             ) { backStackEntry ->
-                val taskName = backStackEntry.arguments?.getString("taskName") ?: ""
+                val ProjectName = backStackEntry.arguments?.getString("ProjectName") ?: ""
                 //navController.navigate(PomodoroScreen())
                 PomodoroScreen()
             }
@@ -130,7 +131,7 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
 
 @Composable
 fun PomodoroTimer(
-    taskName: String,
+    ProjectName: String,
     navController: NavController
 ) {
     var isRunning by remember { mutableStateOf(false) }
@@ -138,8 +139,8 @@ fun PomodoroTimer(
     var timeStarted by remember { mutableStateOf(25 * 60) }
     var job: Job? = null
     val coroutineScope = rememberCoroutineScope()
-    val task = taskName.substringAfter("(").substringBefore(")")
-    val title = task.substringAfter("title=").substringBefore(",")
+    val Project = ProjectName.substringAfter("(").substringBefore(")")
+    val title = Project.substringAfter("title=").substringBefore(",")
 
     Text(
         text = title,

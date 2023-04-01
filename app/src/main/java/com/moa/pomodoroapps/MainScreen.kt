@@ -18,8 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBar
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomNavGraph
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.moa.pomodoroapps.Data.Task
-import com.moa.pomodoroapps.Data.TaskDAO
+import com.moa.pomodoroapps.Data.Project
+import com.moa.pomodoroapps.Data.ProjectDAO
 import com.moa.pomodoroapps.presentation.navigation.bottomnav.BottomBarScreen
 import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
 import dagger.hilt.android.lifecycle.HiltViewModel

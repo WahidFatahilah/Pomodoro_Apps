@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import com.moa.pomodoroapps.presentation.ui.feature.appbarcustom.system.CustomCircularBar
 import com.moa.pomodoroapps.presentation.ui.theme.*
 
-
-
 @Composable
 fun CardHome(
     initialProjectValue: Int,
@@ -25,7 +23,7 @@ fun CardHome(
         mutableStateOf(initialProjectValue)
     }
 
-    var taskValue by remember {
+    var initialTaskValue by remember {
         mutableStateOf(initialTaskValue)
     }
 
@@ -84,7 +82,7 @@ fun CardHome(
 
                     )
                 Text(
-                    text = "$initialTaskValue Task",
+                    text = "$initialProjectValue Project",
                     //"0 Tugas",
                     style = Ket_2,
                     color = asset_White,

@@ -195,7 +195,6 @@ fun PomodoroScreen() {
                         isShortBreak = true
                         showDialog = true
                     }
-
                 }
             }
             if (isShortBreak) {
@@ -203,10 +202,15 @@ fun PomodoroScreen() {
                     remainingTimeShortBreak -= 1000
                 } else if (remainingTimeShortBreak == 0L) {
                     if(sessionCount== 2){
+                        isPomodoro = true
+                        isShortBreak = false
+                        sessionCount++
+                        showDialog = true
+                    }else if (sessionCount == 3 ){
                         isPomodoro = false
                         isShortBreak = true
                         showDialog = true
-                    }else if (sessionCount == 3 ){}
+                    }
                         else{ isShortBreak = false
                         isPomodoro = true
                         showDialog = true }
@@ -236,7 +240,6 @@ fun PomodoroScreen() {
                     if (sessionCount == 2 ) {
                         Text(text = "Pomodoro Session $sessionCount Completed!")
                     } else {Text("Pomodoro Session $sessionCount Completed!")}
-
                 } else if (isLongBreak == true){
                     Text("Pomodoro Session $sessionCount Completed!")
                 }
@@ -248,11 +251,12 @@ fun PomodoroScreen() {
                 }
                 if (isShortBreak == true){
                      if(sessionCount == 2 ){
-                         Text("Mantab Istirahat Pendek Pomodoro $sessionCount selesai, Saatnya Lanjut Pomodoro Sesi 3")
-                     } else {Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Pendek")}
-
+                         Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Pendek")
+                     } else if (sessionCount == 3 ){
+                         Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Pendek")
+                     }else {Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Pendek")}
                 } else if (isLongBreak == true){
-                    Text("Mantab Sesi Pomodoro $sessionCount selesai, Saatnya Istirahat Panjang")
+                    Text("Mantab Sesi Pomodoro Ke $sessionCount selesai, Apakah Ingin Mengulangi Sesi Dari Awal ? ")
                 }
             },
             confirmButton = {
@@ -267,14 +271,17 @@ fun PomodoroScreen() {
                                     sessionCount++
                                 } else if (sessionCount == 2) {
                                     sessionCount++
-                                } else(sessionCount++)
+                                } else if (sessionCount == 3 ){
+                                    sessionCount++
+                                }
+
 
                             } else if(isShortBreak == true){
                                 if(sessionCount==2){
-                                  isPomodoro = true
-                                  isShortBreak = false
+                                  isPomodoro = false
                                   isLongBreak = false
-                                    remainingTimePomodoro = durationPomodoro * 1000
+                                    showDialog = false
+                                    remainingTimeShortBreak = durationShortBreak * 1000
                                     isRunning.value = true
                                 } else{
                                     isPomodoro = false

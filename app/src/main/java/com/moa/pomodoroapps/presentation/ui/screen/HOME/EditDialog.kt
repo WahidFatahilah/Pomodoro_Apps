@@ -53,7 +53,7 @@ fun EditDialog(
                         if (viewModel.isEditing) {
                             viewModel.updateProject()
                         } else {
-                            viewModel.createProject()
+                            //viewModel.createProject()
                         }
 
                     }) {

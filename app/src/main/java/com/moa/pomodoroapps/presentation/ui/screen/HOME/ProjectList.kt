@@ -7,15 +7,21 @@ import com.moa.pomodoroapps.Data.Project
 
 @Composable
 fun ProjectList(
-    Projects: List<Project>,
+    projects: List<Project>,
     onClickRow: (Project) -> Unit,
     onClickDelete: (Project) -> Unit,
     onClickDone: (Project) -> Unit,
-    onClickPlayPomo: (Project) -> Unit,
+    onClickPlayPomo: (Project) -> Unit
 ) {
-    LazyColumn{
-        items(Projects){ Project ->
-            ProjectRow(Project = Project, onClickRow = onClickRow, onClickDelete = onClickDelete, onClickPlayPomo = onClickPlayPomo, onClickDone = onClickDone)
+    LazyColumn {
+        items(projects) { project ->
+            ProjectRow(
+                project = project,
+                onClickRow = onClickRow,
+                onClickDelete = onClickDelete,
+                onClickDone = onClickDone,
+                onClickPlayPomo = onClickPlayPomo
+            )
         }
     }
 }

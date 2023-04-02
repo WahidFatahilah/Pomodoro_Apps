@@ -31,7 +31,6 @@ import kotlinx.coroutines.Job
 fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     val navController = rememberNavController()
 
-
     if (viewModel.isShowDialog) {
         EditDialog()
     }
@@ -41,13 +40,12 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         val Projects by viewModel.Projects.collectAsState(initial = emptyList())
         
         NavHost(navController, startDestination = "Projects") {
             composable("Projects") {
                 ProjectList(
-                    Projects = Projects,
+                    projects = Projects,
                     onClickRow = {
                         viewModel.setEditingProject(it)
                         viewModel.isShowDialog = true
@@ -57,7 +55,7 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
                         navController.navigate("pomodoro/${Projects}")
                     },
                     onClickDone= {
-                        viewModel.CheckBoxDone(it)
+                        //viewModel.CheckBoxDone(it)
                     }
                 )
             }

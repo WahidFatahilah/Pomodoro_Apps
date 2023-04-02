@@ -8,21 +8,22 @@ import com.moa.pomodoroapps.Data.Project
 import com.moa.pomodoroapps.Data.ProjectDAO
 import java.util.*
 
-@Database(entities = [Project::class], version = 4, exportSchema = false)
+@Database(entities = [Project::class, Task::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun ProjectDAO(): ProjectDAO
-
+    abstract fun projectDao(): ProjectDAO
 }
 
 class Converters {
     @TypeConverter
     fun toDate(timestamp: Long?): Date? {
-        return if (timestamp == null) null else Date(timestamp)
+        return timestamp?.let { Date(it) }
     }
 
     @TypeConverter
     fun toTimestamp(date: Date?): Long? {
         return date?.time
     }
+
+
 }

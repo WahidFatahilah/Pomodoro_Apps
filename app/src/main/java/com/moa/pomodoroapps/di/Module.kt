@@ -19,5 +19,5 @@ object Module {
     ) = Room.databaseBuilder(context, AppDatabase::class.java, "Project_database").build()
 
     @Provides
-    fun provideDAO(db: AppDatabase) = db.ProjectDAO()
+    fun provideDAO(db: AppDatabase) = db.projectDao()
 }

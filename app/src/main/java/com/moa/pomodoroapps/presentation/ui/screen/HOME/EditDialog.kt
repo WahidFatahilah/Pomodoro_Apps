@@ -1,5 +1,6 @@
 package com.moa.pomodoroapps.todo.components
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
@@ -11,6 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.moa.pomodoroapps.MainViewModel
 
@@ -65,3 +70,4 @@ fun EditDialog(
         )
 
 }
+

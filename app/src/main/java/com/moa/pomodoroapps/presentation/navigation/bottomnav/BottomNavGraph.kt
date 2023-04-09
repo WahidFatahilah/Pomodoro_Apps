@@ -7,8 +7,7 @@ import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.presentation.ui.screen.Project.ProjectScreen
 import com.moa.pomodoroapps.presentation.ui.screen.HOME.HomeContent
-import com.moa.pomodoroapps.presentation.ui.screen.Setting.SettingScreenViewModel
-import com.moa.pomodoroapps.presentation.ui.screen.SettingScreen
+import com.moa.pomodoroapps.presentation.ui.screen.Setting.SettingScreen
 
 @ExperimentalPagerApi
 @Composable

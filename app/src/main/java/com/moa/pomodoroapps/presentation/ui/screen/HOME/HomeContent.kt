@@ -35,16 +35,12 @@ import com.moa.pomodoroapps.todo.components.TaskList
 @Composable
 fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavController) {
     var navController = rememberNavController()
-    val isStartPomodoro by viewModel.isStartPomodoro.observeAsState(initial = true)
     val taskCountState by viewModel.taskCount.collectAsState()
     val taskCountDoneState by viewModel.taskCount.collectAsState()
 
     if (viewModel.isShowDialog) {
         EditDialog()
     }
-
-
-
     Column(
         modifier = Modifier
             .padding(bottom = 20.dp)
@@ -53,9 +49,7 @@ fun HomeContent(viewModel: MainViewModel = hiltViewModel(), navController: NavCo
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-
 
         NavHost(navController, startDestination = "tasks") {
             composable("tasks") {

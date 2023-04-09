@@ -13,6 +13,7 @@ sealed class BottomBarScreen(
         title = "Home",
         icon = R.drawable.homebottombar
     )
+
     object Pomodoro: BottomBarScreen(
         route = "pomodoro",
         title = "Pomodoro",

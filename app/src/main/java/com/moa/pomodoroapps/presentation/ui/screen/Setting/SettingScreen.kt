@@ -1,28 +1,57 @@
 package com.moa.pomodoroapps.presentation.ui.screen.Setting
 
-import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.moa.pomodoroapps.R
-import com.moa.pomodoroapps.presentation.ui.theme.FontColor
-import com.moa.pomodoroapps.presentation.ui.theme.Heading_H2
-import com.moa.pomodoroapps.presentation.ui.theme.Ket_1
+import com.moa.pomodoroapps.dataStore
+import com.moa.pomodoroapps.presentation.ui.theme.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.core.content.ContextCompat.startActivity
 
 @Composable
 fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navController: NavController) {
+    val context = LocalContext.current
 
-    val isDarkTheme = ThemePreferences(LocalContext.current).isDarkTheme()
+
+    val viewModelTheme = remember { ThemeViewModel(context.dataStore)  }
+    val value = viewModelTheme.state.observeAsState().value
+    val systemInDarkTheme = isSystemInDarkTheme()
+
+
+    val darkModeChecked by remember(value) {
+        val checked = when (value) {
+            null -> systemInDarkTheme
+            else -> value
+        }
+        mutableStateOf(checked)
+    }
+    val useDeviceModeChecked by remember(value) {
+        val checked = when (value) {
+            null -> true
+            else -> false
+        }
+        mutableStateOf(checked)
+    }
+
+    LaunchedEffect(viewModel) {
+        viewModelTheme.request()
+    }
+
+
 
 
     MaterialTheme(){
@@ -35,6 +64,7 @@ fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navCont
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth(1f)
@@ -49,8 +79,8 @@ fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navCont
                     Text(text = "Tema Sekarang", style = Ket_1, color = MaterialTheme.colors.FontColor)
                 }
                 Switch(
-                    checked = isDarkTheme,
-                    onCheckedChange = { }
+                    checked = darkModeChecked,
+                    onCheckedChange = { viewModelTheme.switchToUseDarkMode(it) }
                 )
             }
             Divider(modifier = Modifier.background(MaterialTheme.colors.FontColor))
@@ -87,7 +117,9 @@ fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navCont
                     Text(text = "Kebijakan Privasi", style = Heading_H2, color = MaterialTheme.colors.FontColor)
                     //Image(painter = , contentDescription = )
                 }
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {   /*val uri = Uri.parse(link)
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent) */}) {
                     Icon(contentDescription = "", painter = painterResource(id = R.drawable.ic_arrow), modifier = Modifier.clickable {  })
                 }
             }
@@ -110,32 +142,10 @@ fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navCont
                 }
             }
             Divider(modifier = Modifier.background(MaterialTheme.colors.FontColor))
+
+            Button(onClick = { navController.navigate("TestScreen") }) {
+
+            }
         }
-
     }
-
-
-
-}
-
-@Preview
-@Composable
-fun PreviewStatistikScreen() {
-    //SettingScreen(viewModel = SettingScreenViewModel())
-}
-
-class ThemePreferences(context: Context) {
-
-    private val sharedPreferences =
-        context.getSharedPreferences("THEME_PREFS", Context.MODE_PRIVATE)
-
-    fun isDarkTheme(): Boolean {
-        return sharedPreferences.getBoolean("IS_DARK_THEME", false)
-    }
-
-    fun setDarkTheme(isDarkTheme: Boolean) {
-        sharedPreferences.edit().putBoolean("IS_DARK_THEME", isDarkTheme).apply()
-    }
-
-
 }

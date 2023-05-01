@@ -8,12 +8,20 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
-import com.moa.pomodoroapps.presentation.ui.screen.Setting.ThemePreferences
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.moa.pomodoroapps.dataStore
+import com.moa.pomodoroapps.presentation.ui.screen.Setting.ThemeViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -28,7 +36,7 @@ private val LightColorPalette = lightColors(
     )
 
 @Composable
-fun PomodoroAppsTheme(themeSwitch: Boolean = ThemePreferences(LocalContext.current).isDarkTheme(), content: @Composable () -> Unit) {
+fun PomodoroAppsTheme(themeSwitch: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (themeSwitch) {
         DarkColorPalette
     } else {
@@ -41,3 +49,32 @@ fun PomodoroAppsTheme(themeSwitch: Boolean = ThemePreferences(LocalContext.curre
         content = content
     )
 }
+
+@Composable
+fun AppTheme(
+    content: @Composable () -> Unit,
+){
+    val context = LocalContext.current
+    val viewModel = remember { ThemeViewModel(context.dataStore) }
+    val state = viewModel.state.observeAsState()
+    val value = state.value ?: isSystemInDarkTheme()
+
+    LaunchedEffect(viewModel) { viewModel.request() }
+
+    DarkThemeValue.current.value = value
+    MaterialTheme(
+        colors = if (value) DarkColorPalette else LightColorPalette,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}
+
+@Composable
+@ReadOnlyComposable
+fun isDarkTheme() = DarkThemeValue.current.value
+
+@SuppressLint("CompositionLocalNaming")
+private val DarkThemeValue = compositionLocalOf { mutableStateOf(false) }
+
+

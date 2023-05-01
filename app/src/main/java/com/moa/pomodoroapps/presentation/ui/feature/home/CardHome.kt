@@ -16,140 +16,129 @@ import com.moa.pomodoroapps.presentation.ui.theme.*
 
 @Composable
 fun CardHome(
-    totalProject: Int,
-    totalProjectDone: Int,
+    totalTask: Int,
+    totalTaskDone: Int,
 ) {
     var TotalTask by remember {
-        mutableStateOf(totalProject)
+        mutableStateOf(totalTask)
     }
     var TotalTaskDone by remember {
-        mutableStateOf(totalProjectDone)
+        mutableStateOf(totalTaskDone)
     }
+    var Percentage by remember {
+        mutableStateOf(0.0)
+    }
+
+    Percentage = ((TotalTask / TotalTaskDone) * 100).toDouble()
+    var  TotalPercentage = Percentage.toInt()
+
 
 
     Card(
         shape = RoundedCornerShape(19.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .height(208.dp)
+            .fillMaxWidth(1f)
+            .heightIn(min = 30.dp)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         backgroundColor = MaterialTheme.colors.Pink,
     ) {
-        Row() {
-            //card1
-            Column() {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier.fillMaxWidth(0.5f)
+        ) {
+
                 Card(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .size(144.dp, 62.dp),
+                        .padding(16.dp),
                     shape = RoundedCornerShape(12.dp),
                     backgroundColor = MaterialTheme.colors.PinkSoft
                 ) {
+                    Column(modifier = Modifier
+                        .heightIn(30.dp, 100.dp)
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, top = 6.dp, end = 20.dp, bottom = 6.dp), verticalArrangement = Arrangement.Top) {
+                        Text(
+                            text = "Total Tugas ",
+                            style = Heading_H2,
+                            color = asset_White,
+                            modifier = Modifier
+                          //     .padding(top = 7.dp, start = 12.dp, end = 31.dp, bottom = 31.dp),
+
+                            )
+                        Text(
+                            text = "$TotalTask Project",
+                            //"0 Project",
+                            style = Ket_2,
+                            color = asset_White,
+                            modifier = Modifier
+                               // .padding(top = 37.dp, start = 12.dp, end = 80.dp, bottom = 7.dp),
+
+
+
+                            )
+                    }
+
+
+                }
+
+            Card(
+                modifier = Modifier
+                    .padding(16.dp),
+                shape = RoundedCornerShape(12.dp),
+                backgroundColor = MaterialTheme.colors.PinkSoft
+            ) {
+                Column(modifier = Modifier
+                    .heightIn(30.dp, 100.dp)
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, top = 6.dp, end = 20.dp, bottom = 6.dp), verticalArrangement = Arrangement.Top) {
                     Text(
-                        text = "Total Proyek",
+                        text = "Total Tugas Selesai ",
                         style = Heading_H2,
                         color = asset_White,
                         modifier = Modifier
-                            .padding(top = 7.dp, start = 12.dp, end = 31.dp, bottom = 31.dp),
+                        //     .padding(top = 7.dp, start = 12.dp, end = 31.dp, bottom = 31.dp),
 
-                        )
+                    )
                     Text(
-                        text = "$TotalTask Project",
+                        text = "$TotalTaskDone Project",
                         //"0 Project",
                         style = Ket_2,
                         color = asset_White,
                         modifier = Modifier
-                            .padding(top = 37.dp, start = 12.dp, end = 80.dp, bottom = 7.dp),
+                        // .padding(top = 37.dp, start = 12.dp, end = 80.dp, bottom = 7.dp),
 
 
 
-                        )
+                    )
                 }
+
+
             }
-            //card2
-            Column() {
-                Card(
-                    modifier = Modifier
-                        .padding(172.dp, 16.dp, 12.dp, 0.dp)
-                        .size(144.dp, 62.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    backgroundColor = MaterialTheme.colors.PinkSoft
-                ) {
-                    Text(
-                        text = "Total Tugas",
-                        style = Heading_H2,
-                        color = asset_White,
-                        modifier = Modifier
-                            .padding(top = 7.dp, start = 12.dp, end = 31.dp, bottom = 31.dp),
 
-                        )
-                    Text(
-                        text = "$TotalTaskDone Task",
-                        //"0 Tugas",
-                        style = Ket_2,
-                        color = asset_White,
-                        modifier = Modifier
-                            .padding(top = 37.dp, start = 12.dp, end = 80.dp, bottom = 7.dp),
-
-
-
-                        )
-                }
-            }
         }
 
-        Row(){
-            //card 3
-            Column() {
-                Card(
-                    modifier = Modifier
-                        .padding(top = 100.dp, start = 16.dp)
-                        .size(191.dp, 85.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    backgroundColor = MaterialTheme.colors.PinkSoft
-                ) {
-                    Text(
-                        text =  "Progress Berjalan",
-                        style = Heading_H2,
-                        color = asset_White,
-                        modifier = Modifier
-                            .padding(top = 7.dp, start = 12.dp, end = 31.dp, bottom = 31.dp),
-
-                        )
-                    Text(
-                        text = /* ${getdata pake if}*/
-                        "kamu belum memulai,       ayo tambahkan tugasmu ",
-                        maxLines = 2,
-                        style = Ket_2,
-                        color = asset_White,
-                        modifier = Modifier
-                            .padding(top = 37.dp, start = 12.dp, end = 0.dp, bottom = 0.dp),
-
-                        )
-                }
-            }
-
-
-            CustomCircularBar(
-                modifier = Modifier
-                    .padding(216.dp, 95.dp, 16.dp, 17.dp)
-                    .size(250.dp)
-                ,
-                initialValue = 50, //di ganti get data nanti
-                primaryColor = MaterialTheme.colors.Yellow,
-                secondaryColor = asset_White,
-                circleRadius = 100f,
-            )
-        }
+/*        CustomCircularBar(
+            modifier = Modifier .fillMaxWidth()
+            ,
+            initialValue = Percentage, //di ganti get data nanti
+            primaryColor = MaterialTheme.colors.Yellow,
+            secondaryColor = asset_White,
+            circleRadius = 100f,
+        )*/
 
     }
+
 }
+
+
+}
+
 
 @Preview
 @Composable
 fun PreviewCard1(){
-    CardHome(
-        totalProjectDone = 4,
-        totalProject = 3,
-    )
+/*    CardHome(
+        totalTask = 4,
+        totalTaskDone = 3,
+    )*/
 }

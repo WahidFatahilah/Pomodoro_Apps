@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_continue">Lanjutkan</string>
+    <string name="action_start">Mulai</string>
+    <string name="total_task">Total Tugas</string>
+    <string name="task">Tugas</string>
+    <string name="task_done">Tugas Selesai</string>
+    <string name="click_to_edit">Klik Untuk Edit Proyek</string>
+    <string name="Unfinished">Unfinished</string>
+    <string name="finished">Finished</string>
+    <string name="dont_have_task">Kamu Belum Memiliki Tugas Apapun Disini</string>
+    <string name="please_add_task">Tambah Tugasmu di Menu Project</string>
+</resources>

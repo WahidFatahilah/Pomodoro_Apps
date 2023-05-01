@@ -1,12 +1,11 @@
-package com.moa.pomodoroapps
+package com.moa.pomodoroapps.presentation.ui.screen.HOME
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moa.pomodoroapps.Data.AppDatabase
 import com.moa.pomodoroapps.Data.Task
 import com.moa.pomodoroapps.Data.TaskDAO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,33 +15,39 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel() {
+
     var title by mutableStateOf("")
     var project by mutableStateOf("")
     var description by mutableStateOf("")
     var deadline by mutableStateOf(Date())
     var checkBox by mutableStateOf(false)
     var isShowDialog by mutableStateOf(false)
-    var pomodoroTime = TimeUnit.MINUTES.toMillis(25)
-    var isRunning = false
-    private var _isStartPomodoro = MutableLiveData<Boolean>(false)
-    val isStartPomodoro : LiveData<Boolean> = _isStartPomodoro
     val tasks = taskDAO.loadAllTask().distinctUntilChanged()
+    var taskCreated by mutableStateOf(false)
+    var showTaskDone by mutableStateOf(false)
     private var editingTask: Task? = null
 
     private val _taskCount = MutableStateFlow(0)
     val taskCount: StateFlow<Int> = _taskCount.asStateFlow()
+
+    private val _taskCountDone = MutableStateFlow(0)
+    val taskCountDone: StateFlow<Int> = _taskCountDone.asStateFlow()
+
     init {
         viewModelScope.launch {
             taskDAO.getTaskCount().collect {
                 _taskCount.value = it
             }
+            taskDAO.getDoneTaskCount().collect{
+                _taskCountDone.value = it
+            }
         }
+
     }
     fun CheckBoxDone(task: Task) {
         viewModelScope.launch {
@@ -51,16 +56,6 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
         }
     }
 
-    fun HideColumn(){
-        viewModelScope.launch {
-            _isStartPomodoro.value = true
-        }
-    }
-    fun ShowColumn(){
-        viewModelScope.launch {
-            _isStartPomodoro.value = false
-        }
-    }
     val isEditing: Boolean
         get() = editingTask != null
 
@@ -79,6 +74,8 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
 
 
     }
+
+
 
     fun deleteTask(task: Task) {
         viewModelScope.launch {
@@ -102,12 +99,4 @@ class MainViewModel @Inject constructor(private val taskDAO: TaskDAO): ViewModel
         title = ""
         description = ""
     }
-    fun startPomodoro() {
-        isRunning = true
-    }
-
-    fun stopPomodoro() {
-        isRunning = false
-    }
-
 }

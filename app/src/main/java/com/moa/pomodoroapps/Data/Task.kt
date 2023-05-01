@@ -11,9 +11,8 @@ data class Task(
     var project: String,
     var title: String,
     var description: String,
-    var isDone: Boolean,
+    val isDone: Boolean,
     var deadline: Date?
-    //var deadline: Date,
 )
 
 

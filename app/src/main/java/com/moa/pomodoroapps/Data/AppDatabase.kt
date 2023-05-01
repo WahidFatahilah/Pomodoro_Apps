@@ -4,8 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.moa.pomodoroapps.Data.Task
-import com.moa.pomodoroapps.Data.TaskDAO
 import java.util.*
 
 @Database(entities = [Task::class], version = 3, exportSchema = false)

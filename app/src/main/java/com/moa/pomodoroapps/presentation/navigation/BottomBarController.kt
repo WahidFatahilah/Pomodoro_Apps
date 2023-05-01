@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.presentation.navigation.bottomnav
+package com.moa.pomodoroapps.presentation.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
@@ -38,7 +38,6 @@ fun BottomBar(navController: NavHostController) {
             )
         }
     }
-
 }*/
 @Composable
 fun BottomBar(navController: NavHostController) {

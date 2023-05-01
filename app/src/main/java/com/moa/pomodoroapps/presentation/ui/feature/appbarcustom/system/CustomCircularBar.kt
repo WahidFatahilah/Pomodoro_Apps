@@ -3,9 +3,7 @@ package com.moa.pomodoroapps.presentation.ui.feature.appbarcustom.system
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,7 +26,7 @@ import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
 @Composable
 fun CustomCircularBar(
     modifier: Modifier = Modifier,
-    initialValue: Int,
+    initialValue: Double,
     primaryColor: Color,
     secondaryColor: Color,
     maxValue: Int = 100,
@@ -48,7 +46,7 @@ fun CustomCircularBar(
     ){
         Canvas(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth().heightIn(150.dp , 250.dp),
         ){
             val width = size.width
             val height = size.height
@@ -111,6 +109,7 @@ fun CustomCircularBar(
 }
 
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun Preview(){
@@ -118,9 +117,10 @@ fun Preview(){
         modifier = Modifier
             .size(250.dp)
             .background(color = MaterialTheme.colors.backgroundColor),
-        initialValue = 78,
+        initialValue = 70,
         primaryColor = MaterialTheme.colors.Yellow,
         secondaryColor = Color.LightGray,
         circleRadius = 120f
     )
 }
+*/

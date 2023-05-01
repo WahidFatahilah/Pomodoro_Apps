@@ -1,6 +1,9 @@
 package com.moa.pomodoroapps.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.migrations.SharedPreferencesMigration
+import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import com.moa.pomodoroapps.Data.AppDatabase
 import dagger.Provides
@@ -18,6 +21,9 @@ object Module {
         @ApplicationContext context: Context
     ) = Room.databaseBuilder(context, AppDatabase::class.java, "task_database").build()
 
+
     @Provides
     fun provideDAO(db: AppDatabase) = db.taskDAO()
+
+
 }

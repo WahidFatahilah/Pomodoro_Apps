@@ -1,6 +1,7 @@
 package com.moa.pomodoroapps.presentation.ui.screen.Pomodoro
 
 import android.media.MediaPlayer
+import androidx.compose.animation.core.repeatable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -12,15 +13,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import com.moa.pomodoroapps.presentation.ui.screen.HOME.TimerPomodoro
-import kotlinx.coroutines.delay
+import androidx.navigation.NavController
+import com.airbnb.lottie.compose.*
 import com.moa.pomodoroapps.R
+import com.moa.pomodoroapps.presentation.ui.screen.Project.loadLottie
 import com.moa.pomodoroapps.presentation.ui.theme.FontColor
 import com.moa.pomodoroapps.presentation.ui.theme.Heading_H1
+import kotlinx.coroutines.delay
 
 @Composable
-fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
+fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String, navController: NavController) {
 
     var durationPomodoro by remember { mutableStateOf(15L) }
     var durationShortBreak by remember { mutableStateOf(5L) }
@@ -37,6 +39,7 @@ fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
     var isPomodoro by remember { mutableStateOf(true) }
     var isShortBreak by remember { mutableStateOf(false) }
     var isLongBreakkk by remember { mutableStateOf(false) }
+    var isRocketLaunch by remember { mutableStateOf(false) }
     var showDialogShortBreak by remember { mutableStateOf(false) }
     var showDialogShortBreakkk by remember { mutableStateOf(false) }
     var showDialogPomodoro by remember { mutableStateOf(false) }
@@ -47,6 +50,20 @@ fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
     val project = task.substringAfter("project=").substringBefore(",")
     val title = task.substringAfter("title=").substringBefore(",")
 
+    if(isRocketLaunch){
+        LaunchedEffect(Unit){
+            delay(4000)
+            isRunning.value = true
+            remainingTimePomodoro = durationPomodoro * 1000
+            pomodoroStart = true
+            isRocketLaunch=false
+        }
+        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            rockedLaunch()
+        }
+
+    }
+
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -55,158 +72,134 @@ fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
         if (isRunning.value) {
             if(isPomodoro){
                 TimerPomodoro(
-                    nameList = nameList,
-                    selectedName = selectedName,
-                    durationPomodoro = durationPomodoro,
-                    isPaused = isPaused,
-                    isRunning = isRunning,
-                    sessionCount = sessionCount,
-                    onSessionComplete = {
-
-                    },
-                    durationShortBreak = durationShortBreak,
-                    isPomodoro = isPomodoro,
-                    isShortBreak = isShortBreak,
-                    isLongBreakkk = isLongBreakkk,
+                    durationPomodoro,
+                    isPaused,
+                    isRunning,
+                    sessionCount,
+                    {},
                     remainingTimePomodoro = remainingTimePomodoro,
-                    remainingTimeShortBreak = remainingTimeShortBreak,
-                    durationLongBreakkk = durationLongBreakkk,
-                    remainingTimeLongBreakkk = remainingTimeLongBreakkk
+                    project,
+                    title,
                 )
             }
-            if(isShortBreak){
-
-                TimerPomodoro(
-                    nameList = nameList,
-                    selectedName = selectedName,
-                    durationPomodoro = durationPomodoro,
-                    isPaused = isPaused,
-                    isRunning = isRunning,
-                    sessionCount = sessionCount,
-                    onSessionComplete = {
-
+            if(isShortBreak) {
+                TimerShortBreak(
+                    isPaused,
+                    isRunning,
+                    sessionCount,
+                    {
                     },
-                    durationShortBreak = durationShortBreak,
-                    isPomodoro = isPomodoro,
-                    isShortBreak = isShortBreak,
-                    remainingTimePomodoro = remainingTimePomodoro,
-                    remainingTimeShortBreak = remainingTimeShortBreak,
-                    isLongBreakkk = isLongBreakkk,
-                    durationLongBreakkk = durationLongBreakkk,
-                    remainingTimeLongBreakkk = remainingTimeLongBreakkk
-
+                   durationShortBreak,
+                   remainingTimeShortBreak,
+                    project,
+                    title
                 )
             }
             if(isLongBreakkk) {
-                TimerPomodoro(
-                    nameList = nameList,
-                    selectedName = selectedName,
-                    durationPomodoro = durationPomodoro,
+                TimerLongBreak(
                     isPaused = isPaused,
                     isRunning = isRunning,
                     sessionCount = sessionCount,
-                    onSessionComplete = {
-
-                    },
-                    durationShortBreak = durationShortBreak,
-                    isPomodoro = isPomodoro,
-                    isShortBreak = isShortBreak,
-                    remainingTimePomodoro = remainingTimePomodoro,
-                    remainingTimeShortBreak = remainingTimeShortBreak,
-                    isLongBreakkk = isLongBreakkk,
+                    onSessionComplete = {},
                     durationLongBreakkk = durationLongBreakkk,
-                    remainingTimeLongBreakkk = remainingTimeLongBreakkk
+                    remainingTimeLongBreakkk = remainingTimeLongBreakkk,
+                    project,
+                    title
                 )
             }
         } else {
             if (!pomodoroStart) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceAround,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    
-                    Column(modifier = Modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(text = project, style = Heading_H1, color = MaterialTheme.colors.FontColor)
-                        Text(text = title, style = Heading_H1, color = MaterialTheme.colors.FontColor)
-                    }
-                    
-                    OutlinedTextField(
-                        value = durationPomodoro.toString(),
-                        onValueChange = { input ->
-                            durationPomodoro = if (input.isEmpty()) 0 else input.toLong()
-                            remainingTimePomodoro = durationPomodoro * 60 * 1000
-                        },
-                        label = { Text("Duration Pomodoro in minutes") },
-                        leadingIcon = {
-                            Box(modifier = Modifier.size(24.dp)) {
-                                Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_work),
-                                    contentDescription = "Project",
-                                    tint = MaterialTheme.colors.FontColor,
-                                )
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                if (!isRocketLaunch){
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(
-                        value = durationShortBreak.toString(),
-                        onValueChange = { input ->
-                            durationShortBreak = if (input.isEmpty()) 0 else input.toLong()
-                            remainingTimeShortBreak = durationShortBreak * 60 * 1000
-                        },
-                        label = { Text("Duration Short Break in minutes") },leadingIcon = {
-                            Box(modifier = Modifier.size(24.dp)) {
-                                Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.leg),
-                                    contentDescription = "Project",
-                                    tint = MaterialTheme.colors.FontColor,
-                                )
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(
-                        value = durationLongBreakkk.toString(),
-                        onValueChange = { input ->
-                            durationLongBreakkk = if (input.isEmpty()) 0 else input.toLong()
-                            remainingTimeLongBreakkk= durationLongBreakkk * 60 * 1000
-                        },
-                        label = { Text("Duration Long Break in minutes ") },
-                        leadingIcon = {
-                            Box(modifier = Modifier.size(24.dp)) {
-                                Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_cofee),
-                                    contentDescription = "Project",
-                                    tint = MaterialTheme.colors.FontColor,
-                                )
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Button(
-                        onClick = {
-                            isRunning.value = true
-                            remainingTimePomodoro = durationPomodoro * 1000
-                            pomodoroStart = true
-                        }
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.SpaceAround,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "START")
+                        Column(modifier = Modifier.widthIn(min = 200.dp , max = 400.dp).heightIn(min = 200.dp , max = 400.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                            rockedStandby()
+                        }
+
+                        Column(modifier = Modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+
+                            Text(text = "Project : $project", style = Heading_H1, color = MaterialTheme.colors.FontColor)
+                            Text(text = "Task : $title", style = Heading_H1, color = MaterialTheme.colors.FontColor)
+                        }
+
+                        OutlinedTextField(
+                            value = durationPomodoro.toString(),
+                            onValueChange = { input ->
+                                durationPomodoro = if (input.isEmpty()) 0 else input.toLong()
+                                remainingTimePomodoro = durationPomodoro * 60 * 1000
+                            },
+                            label = { Text("Duration Pomodoro in minutes") },
+                            leadingIcon = {
+                                Box(modifier = Modifier.size(24.dp)) {
+                                    Icon(
+                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_work),
+                                        contentDescription = "Project",
+                                        tint = MaterialTheme.colors.FontColor,
+                                    )
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        OutlinedTextField(
+                            value = durationShortBreak.toString(),
+                            onValueChange = { input ->
+                                durationShortBreak = if (input.isEmpty()) 0 else input.toLong()
+                                remainingTimeShortBreak = durationShortBreak * 60 * 1000
+                            },
+                            label = { Text("Duration Short Break in minutes") },leadingIcon = {
+                                Box(modifier = Modifier.size(24.dp)) {
+                                    Icon(
+                                        imageVector = ImageVector.vectorResource(id = R.drawable.leg),
+                                        contentDescription = "Project",
+                                        tint = MaterialTheme.colors.FontColor,
+                                    )
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        OutlinedTextField(
+                            value = durationLongBreakkk.toString(),
+                            onValueChange = { input ->
+                                durationLongBreakkk = if (input.isEmpty()) 0 else input.toLong()
+                                remainingTimeLongBreakkk= durationLongBreakkk * 60 * 1000
+                            },
+                            label = { Text("Duration Long Break in minutes ") },
+                            leadingIcon = {
+                                Box(modifier = Modifier.size(24.dp)) {
+                                    Icon(
+                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_cofee),
+                                        contentDescription = "Project",
+                                        tint = MaterialTheme.colors.FontColor,
+                                    )
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Button(
+                            onClick = {
+                                isRocketLaunch = true
+                            }
+                        ) {
+                            Text(text = "START")
+                        }
                     }
                 }
             } else {
@@ -346,7 +339,8 @@ fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
         AlertDialog(
             onDismissRequest = {
                 showDialog = false
-                isPaused.value = true
+                showDialogFinished = false
+                isRunning.value = false
             },
             title = {
                 Text("Sesi Pomodoro Telah Berakhir")
@@ -359,8 +353,9 @@ fun PomodoroScreen(onBackPressed: () -> Unit, taskName : String) {
                     showDialog = false
                     isRunning.value = false
                     showDialogFinished = false
-                }) {
                     pomodoroStart = false
+                }) {
+
                     Text("Kembali Ke Menu")
                 }
             },
@@ -393,7 +388,7 @@ fun playAlarm() {
         }
     }
 
-    // Start playing the audio when the composable is first displayed
+
     DisposableEffect(Unit) {
         mediaPlayer.start()
         onDispose {
@@ -401,4 +396,18 @@ fun playAlarm() {
             mediaPlayer.release()
         }
     }
+}
+
+@Composable
+fun rockedStandby() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.rocked_standby))
+    val progress by animateLottieCompositionAsState(composition = composition, iterations = LottieConstants.IterateForever)
+    LottieAnimation(composition = composition, progress = {progress})
+}
+
+@Composable
+fun rockedLaunch() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.rocket_launch))
+    val progress by animateLottieCompositionAsState(composition = composition)
+    LottieAnimation(composition = composition, progress = {progress})
 }

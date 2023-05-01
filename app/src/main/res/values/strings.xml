@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Pomofocus Timer</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_start">Start</string>
+    <string name="total_task">Total Task</string>
+    <string name="task">Task</string>
+    <string name="task_done">Task Done</string>
+    <string name="click_to_edit">Click To Edit Project</string>
+    <string name="Unfinished">Unfinished</string>
+    <string name="finished">Finished</string>
+    <string name="dont_have_task">You Don\'t Have Any Task Here Yet</string>
+    <string name="please_add_task">Add Your Task in the Project Menu</string>
 </resources>

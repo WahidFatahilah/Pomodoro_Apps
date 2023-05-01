@@ -1,4 +1,4 @@
-package com.moa.pomodoroapps.presentation.navigation.bottomnav
+package com.moa.pomodoroapps.presentation.navigation
 
 import com.moa.pomodoroapps.R
 
@@ -16,12 +16,12 @@ sealed class BottomBarScreen(
 
     object Pomodoro: BottomBarScreen(
         route = "pomodoro",
-        title = "Pomodoro",
-        icon = R.drawable.timerlogo
+        title = "Project",
+        icon = R.drawable.ic_task
     )
     object Setting: BottomBarScreen(
         route = "statistik",
-        title = "Statistik",
+        title = "Settings",
         icon = R.drawable.baseline_settings_24
     )
 }

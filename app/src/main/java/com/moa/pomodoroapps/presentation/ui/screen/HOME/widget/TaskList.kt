@@ -1,12 +1,8 @@
-package com.moa.pomodoroapps.todo.components
+package com.moa.pomodoroapps.presentation.ui.screen.HOME.widget
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.moa.pomodoroapps.Data.Task
 
 @Composable

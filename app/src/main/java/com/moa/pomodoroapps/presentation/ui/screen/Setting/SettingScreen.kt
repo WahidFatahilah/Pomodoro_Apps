@@ -1,7 +1,5 @@
 package com.moa.pomodoroapps.presentation.ui.screen.Setting
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -18,9 +16,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.moa.pomodoroapps.R
 import com.moa.pomodoroapps.dataStore
-import com.moa.pomodoroapps.presentation.ui.theme.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.core.content.ContextCompat.startActivity
+import com.moa.pomodoroapps.presentation.ui.theme.FontColor
+import com.moa.pomodoroapps.presentation.ui.theme.Heading_H2
+import com.moa.pomodoroapps.presentation.ui.theme.Ket_1
 
 @Composable
 fun SettingScreen( viewModel : SettingScreenViewModel = hiltViewModel(), navController: NavController) {

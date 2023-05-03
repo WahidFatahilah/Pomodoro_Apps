@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.MainScreen
-import com.moa.pomodoroapps.OpenOnboardingScreen
 import com.moa.pomodoroapps.presentation.ui.screen.Project.ProjectScreen
 import com.moa.pomodoroapps.presentation.ui.screen.HOME.HomeContent
 import com.moa.pomodoroapps.presentation.ui.screen.IntroScreen.IntroScreen
@@ -45,10 +44,6 @@ fun NavigationGraph(navController: NavHostController) {
        composable("introScreen") {
             IntroScreen(navController = navController,modifier = Modifier.background(Color.White))
         }
-        composable("openOnboardingScreen") {
-            OpenOnboardingScreen()
-        }
-
         composable("settingScreen") {
             SettingScreen(navController = navController)
         }

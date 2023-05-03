@@ -12,9 +12,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -35,6 +33,7 @@ import coil.decode.ImageDecoderDecoder
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.moa.pomodoroapps.OnboardingDataStore
 import com.moa.pomodoroapps.R
 import com.moa.pomodoroapps.presentation.ui.theme.Heading_H1
 import com.moa.pomodoroapps.presentation.ui.theme.Heading_H2
@@ -45,13 +44,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun IntroScreen(modifier: Modifier, navController: NavController) {
+fun IntroScreen(modifier: Modifier, navController: NavHostController) {
     val pagerState = rememberPagerState()
     val currentState = pagerState.currentPage
     val contents = onboardContents
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val dataStore = remember { OnboardingDataStore(context) }
 
-    val mContext = LocalContext.current
     Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
 
         HorizontalPager(
@@ -75,8 +75,10 @@ fun IntroScreen(modifier: Modifier, navController: NavController) {
                 coroutineScope.launch {
                     if (pagerState.currentPage == contents.lastIndex)
                     {
-                       navController.navigate("openOnboardingScreen")
-                    } else if (currentState < contents.lastIndex) {
+                        dataStore.setOnboardingCompleted(true)
+                        navController.navigate("mainScreen")
+                    }
+                    else if (currentState < contents.lastIndex) {
                         pagerState.animateScrollToPage(currentState + 1, 0f)
                     }
                 }

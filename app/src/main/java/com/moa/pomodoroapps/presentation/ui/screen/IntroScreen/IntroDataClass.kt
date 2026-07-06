@@ -12,18 +12,18 @@ data class OnboardContent(
 
 val onboardContents = listOf(
     OnboardContent(
-        title = "Anywhere at anytimes",
-        subtitle = "Stream your favorite tunes on the go at anytime with premium.",
+        title = "Focus with intention",
+        subtitle = "Plan your day into clean focus sessions, quick breaks, and steady progress.",
         imageRes = R.drawable.ic_done
     ),
     OnboardContent(
-        title = "Listen ad free",
-        subtitle = "Enjoy ad free listening and jam out to your favorites songs.",
+        title = "Track what matters",
+        subtitle = "See tasks, time used, and productivity in one calm dashboard.",
         imageRes = R.drawable.deletelogo
     ),
     OnboardContent(
-        title = "First month on us",
-        subtitle = "Due to the current circumstances try the first month free on us",
+        title = "Build momentum daily",
+        subtitle = "Stay consistent with a simple flow that makes starting easier every day.",
         imageRes = R.drawable.ic_dont_play
     ),
 )

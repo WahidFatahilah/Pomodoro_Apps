@@ -10,6 +10,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navOptions
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.moa.pomodoroapps.presentation.ui.theme.Grey
 import com.moa.pomodoroapps.presentation.ui.theme.Pink
 import com.moa.pomodoroapps.presentation.ui.theme.backgroundColor
@@ -44,6 +46,7 @@ fun BottomBar(navController: NavHostController) {
     val screens: List<BottomBarScreen> = listOf(
         BottomBarScreen.Home,
         BottomBarScreen.Pomodoro,
+        BottomBarScreen.Statistik,
         BottomBarScreen.Setting,
 
     )
@@ -100,7 +103,13 @@ fun RowScope.AddItem(
 
         selectedContentColor = MaterialTheme.colors.Pink,
         onClick = {
-            navController.navigate(screen.route)
+            navController.navigate(screen.route, navOptions {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            })
         }
     )
 }

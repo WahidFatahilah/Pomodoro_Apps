@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -22,11 +23,12 @@ fun CustomTopAppBar(
     TopAppBar(
         elevation = 0.dp,
         backgroundColor = MaterialTheme.colors.backgroundColor,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 8.dp),
         content = {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
 //                IconButton(onClick = onIconClick) {
@@ -46,9 +48,9 @@ fun CustomTopAppBar(
                         color = MaterialTheme.colors.FontColor
                     )
                     Text(
-                        text = subtitle,
+                        text = subtitle.replaceFirstChar { it.uppercase() },
                         style = Ket_1,
-                        color = MaterialTheme.colors.FontColor
+                        color = MaterialTheme.colors.textMuted
                     )
                 }
 //                IconButton(
@@ -139,4 +141,3 @@ fun PreviewCustomTopAppBar() {
      }
  }
 */
-

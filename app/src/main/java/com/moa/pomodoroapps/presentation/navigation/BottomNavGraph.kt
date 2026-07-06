@@ -4,18 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavType
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.MainScreen
+import com.moa.pomodoroapps.presentation.ui.screen.Project.AddTaskScreen
 import com.moa.pomodoroapps.presentation.ui.screen.Project.ProjectScreen
 import com.moa.pomodoroapps.presentation.ui.screen.HOME.HomeContent
 import com.moa.pomodoroapps.presentation.ui.screen.IntroScreen.IntroScreen
 import com.moa.pomodoroapps.presentation.ui.screen.Pomodoro.PomodoroScreen
 import com.moa.pomodoroapps.presentation.ui.screen.Setting.SettingScreen
 import com.moa.pomodoroapps.presentation.ui.screen.Setting.TestScreen
+import com.moa.pomodoroapps.presentation.ui.screen.Statistic.StatisticScreen
 
 @ExperimentalPagerApi
 @Composable
@@ -29,7 +32,15 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(route = BottomBarScreen.Pomodoro.route){
-            ProjectScreen()
+            ProjectScreen(navController = navController)
+        }
+
+        composable(route = BottomBarScreen.Statistik.route){
+            StatisticScreen()
+        }
+
+        composable("addTask") {
+            AddTaskScreen(navController = navController)
         }
 
         composable(route = BottomBarScreen.Setting.route){
@@ -52,14 +63,13 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(
-            "pomodoro/{taskName}",
-            arguments = listOf(navArgument("taskName") { defaultValue = "" }),
+            "pomodoro/{taskId}",
+            arguments = listOf(navArgument("taskId") { type = NavType.LongType }),
         ) { backStackEntry ->
-            var taskName = backStackEntry.arguments?.getString("taskName") ?: ""
+            val taskId = backStackEntry.arguments?.getLong("taskId") ?: -1L
             PomodoroScreen(onBackPressed = {
-                taskName = ""
                 navController.popBackStack()
-            },  taskName = taskName, navController = navController)
+            }, taskId = taskId)
 
         }
 

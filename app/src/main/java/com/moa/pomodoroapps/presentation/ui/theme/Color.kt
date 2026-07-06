@@ -76,16 +76,16 @@ val Colors.FontColor
     else Color(0xFFf9f9f9)
 
 val Colors.backgroundColor
-    get() = if (isLight) Color(0xFFf9f9f9)
-    else Color(0xFF1f1f1f)
+    get() = if (isLight) Color(0xFFFFFBF8)
+    else Color(0xFF171412)
 
 val Colors.backgroundBotton
     get() = if (isLight) Color(0xFFFFFFFF)
-    else Color(0xFF2C2C2C)
+    else Color(0xFF241F1D)
 
 val Colors.backgroundColorProject
-    get() = if (isLight) Color(0xFFB8B8B8)
-    else Color(0xFF363636)
+    get() = if (isLight) Color(0xFFFFF2EC)
+    else Color(0xFF2A2421)
 
 val Colors.BlackCard
     get() = if (isLight) Color(0xff2c2c2c)
@@ -94,6 +94,30 @@ val Colors.BlackCard
 val Colors.IETabsColor
     get() = if (isLight) Color(0xFFc9c9c9)
     else Color(0xffb9b9b9)
+
+val Colors.surfaceElevated
+    get() = if (isLight) Color(0xFFFFFFFF)
+    else Color(0xFF211D1B)
+
+val Colors.surfaceMuted
+    get() = if (isLight) Color(0xFFFFEFE8)
+    else Color(0xFF2E2825)
+
+val Colors.textMuted
+    get() = if (isLight) Color(0xFF7A6D68)
+    else Color(0xFFC8BCB6)
+
+val Colors.focusAccent
+    get() = if (isLight) Color(0xFFE95F46)
+    else Color(0xFFFF8A72)
+
+val Colors.breakAccent
+    get() = if (isLight) Color(0xFF2F9E8F)
+    else Color(0xFF62D5C5)
+
+val Colors.warningAccent
+    get() = if (isLight) Color(0xFFE8A13A)
+    else Color(0xFFFFC46B)
 
 
 val Pink = Color(0xFFF24F76)

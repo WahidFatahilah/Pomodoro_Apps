@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.ads.MobileAds
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.presentation.ui.screen.IntroScreen.IntroScreen
 import com.moa.pomodoroapps.presentation.ui.screen.SplashScreen
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this)
 
         setContent {
             AppTheme() {
@@ -62,4 +64,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

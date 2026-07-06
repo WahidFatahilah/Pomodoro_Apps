@@ -62,7 +62,7 @@ fun showTaskDone(
         },
         onClickDelete = { viewModel.deleteTask(it) },
         onClickPlayPomo = { task ->
-            navController.navigate("pomodoro/${task}")
+            navController.navigate("pomodoro/${task.id.toLong()}")
         },
         onClickDone = {
             viewModel.CheckBoxDone(it)

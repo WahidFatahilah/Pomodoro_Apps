@@ -19,8 +19,13 @@ sealed class BottomBarScreen(
         title = "Project",
         icon = R.drawable.ic_task
     )
-    object Setting: BottomBarScreen(
+    object Statistik: BottomBarScreen(
         route = "statistik",
+        title = "Statistik",
+        icon = R.drawable.statistiklogo
+    )
+    object Setting: BottomBarScreen(
+        route = "setting",
         title = "Settings",
         icon = R.drawable.baseline_settings_24
     )

@@ -1,16 +1,30 @@
 package com.moa.pomodoroapps.presentation.ui.screen.HOME.widget
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Checkbox
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -18,15 +32,23 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.moa.pomodoroapps.R
 import com.moa.pomodoroapps.Data.Task
+import com.moa.pomodoroapps.Data.TaskStatus
+import com.moa.pomodoroapps.Data.TaskWithProjectRow
+import com.moa.pomodoroapps.R
 import com.moa.pomodoroapps.presentation.ui.theme.FontColor
-import com.moa.pomodoroapps.presentation.ui.theme.Pink
+import com.moa.pomodoroapps.presentation.ui.theme.Ket_1
 import com.moa.pomodoroapps.presentation.ui.theme.Subtitle_1
+import com.moa.pomodoroapps.presentation.ui.theme.Subtitle_2
+import com.moa.pomodoroapps.presentation.ui.theme.focusAccent
+import com.moa.pomodoroapps.presentation.ui.theme.surfaceElevated
+import com.moa.pomodoroapps.presentation.ui.theme.surfaceMuted
+import com.moa.pomodoroapps.presentation.ui.theme.textMuted
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun TaskRow(
@@ -36,140 +58,243 @@ fun TaskRow(
     onClickDone: (Task) -> Unit,
     onClickPlayPomo: (Task) -> Unit
 ) {
-
-   var checkedState = remember { mutableStateOf(task.isDone) }
+    val taskAlpha = if (task.isDone) 0.62f else 1f
+    val titleStyle = if (task.isDone) {
+        Subtitle_1.copy(textDecoration = TextDecoration.LineThrough)
+    } else {
+        Subtitle_1
+    }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
-            .clickable { onClickRow(task) },
-        elevation = 5.dp
+            .padding(vertical = 6.dp)
+            .clickable { onClickRow(task) }
+            .alpha(taskAlpha),
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = MaterialTheme.colors.surfaceElevated,
+        elevation = 0.dp
     ) {
-        Column(
-            Modifier.padding(10.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = task.project, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough,) else Subtitle_1)
+            Checkbox(
+                checked = task.isDone,
+                onCheckedChange = { onClickDone(task) }
+            )
 
-            Row(
-                modifier = Modifier
-                    .clickable { onClickRow(task) }
-                    .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(width = 3.dp, height = 24.dp)
-                        .background(MaterialTheme.colors.Pink)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colors.focusAccent)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = task.project,
+                        style = Ket_1,
+                        color = MaterialTheme.colors.textMuted
+                    )
+                }
+
+                Text(
+                    text = task.title,
+                    style = titleStyle,
+                    color = MaterialTheme.colors.FontColor
                 )
-                Column(
+
+                if (task.description.isNotBlank()) {
+                    Text(
+                        text = task.description,
+                        style = if (task.isDone) TextStyle(textDecoration = TextDecoration.LineThrough) else Subtitle_2,
+                        color = MaterialTheme.colors.textMuted,
+                        maxLines = 2
+                    )
+                }
+
+                TaskMetaRow(deadlineText = task.deadline.toDeadlineText())
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    onClick = { if (!task.isDone) onClickPlayPomo(task) },
+                    enabled = !task.isDone,
                     modifier = Modifier
-                        .padding(10.dp)
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colors.surfaceMuted)
                 ) {
-                    Row() {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable .ic_task) ,
-                            contentDescription = "Project",
-                            tint = MaterialTheme.colors.FontColor,
-                        )
-                        Text(text = task.title, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                    }
-                    Row(){
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable .baseline_description_24) ,
-                            contentDescription = "Project",
-                            tint = MaterialTheme.colors.FontColor,
-                        )
-                        Text(text = task.description, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                    }
-                    Row(){
-                        val dateFormatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-                        val deadlineString = task.deadline?.let {
-                            val deadlineDate = it.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().toLocalDate()
-                            if (deadlineDate == LocalDate.now()) {
-                                "Hari ini"
-                            } else {
-                                dateFormatter.format(it)
-                            }
-                        } ?: "No deadline"
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable .baseline_date_range_24) ,
-                            contentDescription = "Project",
-                            tint = MaterialTheme.colors.FontColor,
-                        )
-                        Text(text = deadlineString, style = if (checkedState.value) TextStyle(textDecoration = TextDecoration.LineThrough) else LocalTextStyle.current)
-                    }
+                    Icon(
+                        painter = painterResource(id = if (task.isDone) R.drawable.ic_dont_play else R.drawable.ic_play),
+                        contentDescription = "Play Pomodoro",
+                        tint = MaterialTheme.colors.focusAccent
+                    )
                 }
-                Spacer(modifier = Modifier.weight(1f))
-                Checkbox(
-                    checked =  checkedState.value,
-                    onCheckedChange = { isChecked ->
-                        checkedState.value = isChecked
-                        onClickDone(task)
-                    }
-                )
-
-                IconButton(onClick = { onClickDelete(task) }) {
-                    Icon(painter = painterResource(id = R.drawable.deletelogo), contentDescription = "Delete TAsk")
+                Spacer(modifier = Modifier.height(4.dp))
+                IconButton(onClick = { onClickDelete(task) }, modifier = Modifier.size(40.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.deletelogo),
+                        contentDescription = "Delete Task",
+                        tint = MaterialTheme.colors.textMuted
+                    )
                 }
-                if (checkedState.value == true)
-                {
-                    IconButton(onClick = {  }) {
-                        Icon(painter = painterResource(id = R.drawable.ic_dont_play), contentDescription = "Play Pomodoro")
-                    }
-                }else {
-                    IconButton(onClick = { onClickPlayPomo(task) }) {
-                        Icon(painter = painterResource(id = R.drawable.ic_play), contentDescription = "Play Pomodoro")
-                    }
-                }
-
             }
         }
-
     }
 }
 
 @Composable
-fun CircleCheckbox(
-    task: Task,
-    checked: Boolean,
-    onClickDone: (Task) -> Unit
+fun TaskRow(
+    task: TaskWithProjectRow,
+    onClickRow: (TaskWithProjectRow) -> Unit,
+    onClickDelete: (TaskWithProjectRow) -> Unit,
+    onClickDone: (TaskWithProjectRow) -> Unit,
+    onClickPlayPomo: (TaskWithProjectRow) -> Unit
 ) {
-    val strokeWidth = 2.dp
-    val size = 24.dp
+    val isDone = task.status == TaskStatus.DONE
+    val taskAlpha = if (isDone) 0.62f else 1f
+    val titleStyle = if (isDone) {
+        Subtitle_1.copy(textDecoration = TextDecoration.LineThrough)
+    } else {
+        Subtitle_1
+    }
 
-    Box(
+    Card(
         modifier = Modifier
-            .size(size)
-            .clickable(onClick = { onClickDone(task) })
-            .border(
-                width = strokeWidth,
-                color = MaterialTheme.colors.onBackground,
-                shape = CircleShape
-            )
+            .fillMaxWidth()
+            .padding(vertical = 6.dp)
+            .clickable { onClickRow(task) }
+            .alpha(taskAlpha),
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = MaterialTheme.colors.surfaceElevated,
+        elevation = 0.dp
     ) {
-        if (checked) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_check),
-                contentDescription = "Checkbox Checked",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(strokeWidth)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = isDone,
+                onCheckedChange = { onClickDone(task) }
             )
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colors.focusAccent)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = task.projectName,
+                        style = Ket_1,
+                        color = MaterialTheme.colors.textMuted
+                    )
+                }
+
+                Text(
+                    text = task.title,
+                    style = titleStyle,
+                    color = MaterialTheme.colors.FontColor
+                )
+
+                if (!task.description.isNullOrBlank()) {
+                    Text(
+                        text = task.description,
+                        style = if (isDone) TextStyle(textDecoration = TextDecoration.LineThrough) else Subtitle_2,
+                        color = MaterialTheme.colors.textMuted,
+                        maxLines = 2
+                    )
+                }
+
+                TaskMetaRow(deadlineText = task.dueDate.toDeadlineText())
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    onClick = { if (!isDone) onClickPlayPomo(task) },
+                    enabled = !isDone,
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colors.surfaceMuted)
+                ) {
+                    Icon(
+                        painter = painterResource(id = if (isDone) R.drawable.ic_dont_play else R.drawable.ic_play),
+                        contentDescription = "Play Pomodoro",
+                        tint = MaterialTheme.colors.focusAccent
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                IconButton(onClick = { onClickDelete(task) }, modifier = Modifier.size(40.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.deletelogo),
+                        contentDescription = "Delete Task",
+                        tint = MaterialTheme.colors.textMuted
+                    )
+                }
+            }
         }
     }
+}
+
+@Composable
+private fun TaskMetaRow(deadlineText: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.baseline_date_range_24),
+            contentDescription = "Deadline",
+            tint = MaterialTheme.colors.textMuted,
+            modifier = Modifier.size(16.dp)
+        )
+        Spacer(modifier = Modifier.width(6.dp))
+        Text(text = deadlineText, style = Ket_1, color = MaterialTheme.colors.textMuted)
+    }
+}
+
+private fun Date?.toDeadlineText(): String {
+    val deadline = this ?: return "No deadline"
+    val deadlineDate = deadline.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+    if (deadlineDate == LocalDate.now()) return "Today"
+    return SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(deadline)
 }
 
 @Preview
 @Composable
 fun TaskRowPreview() {
-    val dateFormat = SimpleDateFormat("MM/dd/yy")
-    val date = dateFormat.parse("12/22/22")
-
     TaskRow(
-        task = Task(project = "Project Name", title = "TaskTesting", description = "LoremIpsum", deadline = date, isDone = false ),
-        onClickRow ={},
-        onClickDelete ={},
+        task = Task(
+            project = "Project Name",
+            title = "Task testing",
+            description = "Prepare outline and run the first focus session",
+            deadline = Date(),
+            isDone = false
+        ),
+        onClickRow = {},
+        onClickDelete = {},
         onClickDone = {},
         onClickPlayPomo = {}
     )

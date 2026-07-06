@@ -14,6 +14,7 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -25,7 +26,11 @@ fun EditDialog(
             viewModel.resetProperties()
         }
     }
-    var pickedDate by remember {  mutableStateOf(LocalDate.now()) }
+    var pickedDate by remember(viewModel.deadline) {
+        mutableStateOf(
+            viewModel.deadline.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        )
+    }
 
     val formattedDate by remember {
         derivedStateOf {
@@ -38,7 +43,7 @@ fun EditDialog(
 
     AlertDialog(
             onDismissRequest = { viewModel.isShowDialog = false },
-            title = { Text(text = if (viewModel.isEditing) "Task Update" else "Create New Task") },
+            title = { Text(text = if (viewModel.isEditing) "Task Update" else "Task") },
             text = {
                 Column() {
                     Text(text = "Title")
@@ -92,11 +97,10 @@ fun EditDialog(
 
                     Button(modifier = Modifier.width(120.dp), onClick = {
                         viewModel.isShowDialog = false
-                        if (viewModel.isEditing) {
-                            viewModel.updateTask()
-                        } else {
-                            viewModel.createTask()
-                        }
+                        viewModel.deadline = java.util.Date.from(
+                            pickedDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+                        )
+                        viewModel.updateTask()
 
                     }) {
                         Text(text = "OK")
@@ -107,4 +111,3 @@ fun EditDialog(
         )
 
 }
-

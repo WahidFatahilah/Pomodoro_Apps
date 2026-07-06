@@ -24,7 +24,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.moa.pomodoroapps.presentation.navigation.BottomBar
 import com.moa.pomodoroapps.presentation.navigation.NavigationGraph
 import com.moa.pomodoroapps.presentation.ui.screen.IntroScreen.IntroScreen
-import com.moa.pomodoroapps.presentation.ui.screen.Project.loadLottie
 import com.moa.pomodoroapps.presentation.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

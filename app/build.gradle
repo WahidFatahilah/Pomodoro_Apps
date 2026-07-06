@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.moa.pomodoroapps'
+    namespace 'com.xyz.pomotrack'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.moa.pomodoroapps"
+        applicationId "com.xyz.pomotrack"
         minSdk 26
         targetSdk 34
         versionCode 1
